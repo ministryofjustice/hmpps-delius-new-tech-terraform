@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "project_name" {
-  description = "The project name - vcms"
+  description = "The project name - delius new tech"
 }
 
 variable "environment_type" {
