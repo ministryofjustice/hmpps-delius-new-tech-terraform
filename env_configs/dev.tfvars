@@ -9,12 +9,14 @@ bastion_vpc_cidr = "10.161.98.0/25"
 bastion_vpc_id = "vpc-00d48e9851c261b47"
 world_access = "true"
 az_count = 2
-min_asg_size = 1
-max_asg_size = 4
-instance_type = "t2.micro"
-lower_cpu_trigger = 5
-upper_cpu_trigger = 10
 alarms_enabled = "false"
+
+pdf_generator_min_asg_size = 1
+pdf_generator_max_asg_size = 4
+pdf_generator_instance_type = "t2.micro"
+pdf_generator_lower_cpu_trigger = 5
+pdf_generator_upper_cpu_trigger = 10
+pdf_generator_debug_log = "true"
 
 tags = {
   owner = "Digital Studio",
