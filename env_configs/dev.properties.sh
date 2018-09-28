@@ -29,6 +29,7 @@ export TG_REMOTE_STATE_BUCKET="${TG_ENVIRONMENT_IDENTIFIER}-remote-state"
 # TERRAFORM VARIABLES
 # ###################
 
+export TF_VAR_environment_identifier=${TG_ENVIRONMENT_IDENTIFIER}
 export TF_VAR_environment_type=${TG_ENVIRONMENT_TYPE}
 export TF_VAR_region=${TG_REGION}
 export TF_VAR_remote_state_bucket_name=${TG_REMOTE_STATE_BUCKET}
