@@ -11,6 +11,12 @@ world_access = "true"
 az_count = 2
 alarms_enabled = "false"
 
+delius_api_min_asg_size = 1
+delius_api_max_asg_size = 4
+delius_api_instance_type = "t2.micro"
+delius_api_lower_cpu_trigger = 5
+delius_api_upper_cpu_trigger = 10
+
 pdf_generator_min_asg_size = 1
 pdf_generator_max_asg_size = 4
 pdf_generator_instance_type = "t2.micro"
