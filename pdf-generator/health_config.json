@@ -55,7 +55,7 @@
     "Environment": {
       "Application": {
         "ApplicationRequests4xx": {
-          "Enabled": true
+          "Enabled": false
         }
       }
     }
