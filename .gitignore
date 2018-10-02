@@ -55,7 +55,7 @@ hs_err_pid*
 /digital-probation-services-environments.iml
 
 # Terraform
-**/terraform.plan
+**/*.plan
 **/.terraform
 
 # Elastic Beanstalk Files
