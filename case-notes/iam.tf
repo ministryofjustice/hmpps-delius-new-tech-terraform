@@ -4,11 +4,11 @@ resource "aws_iam_role" "casenotes_execute_role" {
   assume_role_policy = "${data.template_file.ecstasks_assumerole_template.rendered}"
 }
 
-resource "aws_iam_role_policy" "casenotes_policy" {
-  name = "${local.name_prefix}-casenotes-pri-iam"
+resource "aws_iam_role_policy" "casenotes_execute_policy" {
+  name = "${local.name_prefix}-cnotesexec-pri-iam"
   role = "${aws_iam_role.casenotes_execute_role.name}"
 
-  policy = "${data.template_file.casenotes_execute_policy_template.rendered}"
+  policy = "${data.template_file.cnotesexec_policy_template.rendered}"
 }
 
 # Task role for the application itself to interact with AWS services
