@@ -16,7 +16,7 @@
             "awslogs-region": "${region}",
             "awslogs-stream-prefix": "ecs-${container_name}"
         }
-    }
+    },
     "environment": [
         {
           "name": "DEBUG_LOG",

@@ -53,6 +53,7 @@ variable "casenotes_conf" {
     memory        = "512"
     # Task Def Env Vars
     env_debug_log = "false"
+    env_mongo_db_url = "mongodb://localhost:27017"
     env_mongo_db_name = "pollpush"
     # NOMIS Endpoint
     env_pull_base_url = "http://localhost:8080/nomisapi/offenders/events/case_notes"
