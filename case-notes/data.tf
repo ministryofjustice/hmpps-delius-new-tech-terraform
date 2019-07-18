@@ -42,7 +42,12 @@ data "template_file" "ecstasks_assumerole_template" {
 
 data "template_file" "cnotesexec_policy_template" {
   template = "${file("${path.module}/templates/iam/cnotesexec_policy.tpl")}"
-  vars     = {}
+  vars     = {
+    aws_account_id = "${data.aws_caller_identity.current.account_id}"
+    environment_name =  "${var.environment_name}"
+    region = "${var.region}"
+    project_name = "${var.project_name}"
+  }
 }
 
 # Case notes task definition template
@@ -51,10 +56,20 @@ data "template_file" "casenotes_task_def_template" {
 
   vars {
     region         = "${var.region}"
+    aws_account_id = "${data.aws_caller_identity.current.account_id}"
+    environment_name =  "${var.environment_name}"
+    project_name = "${var.project_name}"
     container_name = "casenotes"
     image_url      = "${var.casenotes_conf["image"]}"
     image_version  = "${var.casenotes_conf["image_version"]}"
     log_group_name = "${var.environment_name}/casenotes"
-    memory         = "${var.casenotes_conf["memory"]}"
+    env_debug_log = "${var.casenotes_conf[""]}"
+    env_mongo_db_url = "${var.casenotes_conf["env_debug_log"]}"
+    env_mongo_db_name = "${var.casenotes_conf["env_mongo_db_name"]}"
+    env_pull_base_url = "${var.casenotes_conf["env_pull_base_url"]}"
+    env_pull_note_types = "${var.casenotes_conf["env_pull_note_types"]}"
+    env_push_base_url = "${var.casenotes_conf["env_push_base_url"]}"
+    env_poll_seconds = "${var.casenotes_conf["env_poll_seconds"]}"
+    env_slack_seconds = "${var.casenotes_conf["env_slack_seconds"]}"
   }
 }

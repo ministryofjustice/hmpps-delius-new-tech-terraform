@@ -41,6 +41,7 @@ variable "dependencies_bucket_arn" {
 variable "tags" {
   type = "map"
 }
+
 variable "casenotes_conf" {
   description = "Config map for case notes poll/push task"
   type        = "map"
@@ -48,6 +49,17 @@ variable "casenotes_conf" {
   default = {
     image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-casenotes"
     image_version = "latest"
+    cpu           = "1024"
     memory        = "512"
+    # Task Def Env Vars
+    env_debug_log = "false"
+    env_mongo_db_name = "pollpush"
+    # NOMIS Endpoint
+    env_pull_base_url = "http://localhost:8080/nomisapi/offenders/events/case_notes"
+    env_pull_note_types = ""
+    # NDelius Endpoint
+    env_push_base_url = "http://localhost:8080/delius"
+    env_poll_seconds = "60"
+    env_slack_seconds = "0"
   }
 }
