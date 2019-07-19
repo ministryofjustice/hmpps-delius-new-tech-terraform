@@ -11,9 +11,16 @@ resource "aws_iam_role_policy" "casenotes_execute_policy" {
   policy = "${data.template_file.cnotesexec_policy_template.rendered}"
 }
 
-# Task role for the application itself to interact with AWS services
+# Task role for the casenotes task to interact with AWS services
 # No policy needed atm, but could be down the line if move to documentdb/dynamodb
 resource "aws_iam_role" "casenotes_task_role" {
   name               = "${local.name_prefix}-casenotes-pri-iam"
+  assume_role_policy = "${data.template_file.ecstasks_assumerole_template.rendered}"
+}
+
+# Task role for the mongodb task itself to interact with AWS services
+# No policy needed atm, but could be if, e.g. backups to s3 needed
+resource "aws_iam_role" "mongodb_task_role" {
+  name               = "${local.name_prefix}-cnotesdb-pri-iam"
   assume_role_policy = "${data.template_file.ecstasks_assumerole_template.rendered}"
 }

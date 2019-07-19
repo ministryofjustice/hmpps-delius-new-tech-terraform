@@ -2,6 +2,7 @@
     "name": "${container_name}",
     "image": "${image_url}:${image_version}",
     "essential": true,
+    "interactive": true,
     "healthCheck": {
         "command": [ "/bin/sh", "$(ps -ef | grep -v grep | grep -c pollPush.jar) || exit 1" ],
         "interval": 60,

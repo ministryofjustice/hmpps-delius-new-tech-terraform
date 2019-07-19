@@ -1,7 +1,7 @@
 # Task security group
 resource "aws_security_group" "casenotes_sg" {
   name        = "${local.name_prefix}-casenotes-pri-sg"
-  description = "New Tech Casenoets Security Group"
+  description = "New Tech Casenotes Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
 
   # Allow all outbound
@@ -29,15 +29,38 @@ resource "aws_ecs_service" "casenotes_service" {
   name            = "${local.name_prefix}-casenotes-pri-ecs"
   cluster         = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_id}"
   task_definition = "${aws_ecs_task_definition.casenotes_task_def.arn}"
+
   network_configuration = {
-    subnets = [ "${local.private_subnet_ids}" ]
-    security_groups = [ "${aws_security_group.casenotes_sg.id}" ]
+    subnets         = ["${local.private_subnet_ids}"]
+    security_groups = ["${aws_security_group.casenotes_sg.id}"]
   }
+
   # Not horizontally scalable - single instance
   desired_count = 1
   depends_on    = ["aws_iam_role.casenotes_task_role"]
-  
+
   lifecycle {
     ignore_changes = ["desired_count"]
+  }
+}
+
+# Create a service record in the ecs cluster's private namespace
+resource "aws_service_discovery_service" "casenotes_svc_record" {
+  name = "casenotes"
+
+  dns_config {
+    namespace_id = "${data.terraform_remote_state.ecs_cluster.private_cluster_namespace["id"]}"
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "MULTIVALUE"
+  }
+
+  # ECS service helath check
+  health_check_custom_config {
+    failure_threshold = 1
   }
 }

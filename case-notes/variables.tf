@@ -51,16 +51,30 @@ variable "casenotes_conf" {
     image_version = "latest"
     cpu           = "1024"
     memory        = "512"
+
     # Task Def Env Vars
-    env_debug_log = "false"
-    env_mongo_db_url = "mongodb://localhost:27017"
+    env_debug_log     = "false"
     env_mongo_db_name = "pollpush"
+
     # NOMIS Endpoint
-    env_pull_base_url = "http://localhost:8080/nomisapi/offenders/events/case_notes"
+    env_pull_base_url   = "http://localhost:8080/nomisapi/offenders/events/case_notes"
     env_pull_note_types = ""
+
     # NDelius Endpoint
     env_push_base_url = "http://localhost:8080/delius"
-    env_poll_seconds = "60"
+    env_poll_seconds  = "60"
     env_slack_seconds = "0"
+  }
+}
+
+variable "mongodb_conf" {
+  description = "Config map for case notes MongoDB task"
+  type        = "map"
+
+  default = {
+    image         = "docker.io/mongo"
+    image_version = "4.0.10"
+    cpu           = "512"
+    memory        = "512"
   }
 }
