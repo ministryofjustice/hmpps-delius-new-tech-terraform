@@ -1,6 +1,12 @@
 def project = [:]
 project.config    = 'hmpps-env-configs'
+project.iaps     = 'hmpps-delius-new-tech-terraform'
 
+// Parameters required for job
+// parameters:
+//     choice:
+//       name: 'environment_name'
+//       description: 'Environment name.'
 
 def prepare_env() {
     sh '''
@@ -55,7 +61,7 @@ pipeline {
             }
         }
         // delius-test
-        stage('Delius VPC') {
+        stage('New Tech') {
           parallel {
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.network, 'case-notes')}}}
           }
@@ -65,7 +71,6 @@ pipeline {
     post {
         always {
             deleteDir()
-
         }
     }
 

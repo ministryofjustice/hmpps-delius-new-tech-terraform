@@ -1,5 +1,6 @@
 def project = [:]
 project.config    = 'hmpps-env-configs'
+project.iaps     = 'hmpps-delius-new-tech-terraform'
 
 def prepare_env() {
     sh '''
