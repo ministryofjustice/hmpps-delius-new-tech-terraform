@@ -1,6 +1,6 @@
 def project = [:]
 project.config    = 'hmpps-env-configs'
-project.iaps     = 'hmpps-delius-new-tech-terraform'
+project.newtech     = 'hmpps-delius-new-tech-terraform'
 
 def prepare_env() {
     sh '''
@@ -141,7 +141,7 @@ pipeline {
         stage('New Tech Case Notes') {
           steps {
             script {
-              do_terraform(project.config, environment_name, project.network, 'case-notes')
+              do_terraform(project.config, environment_name, project.newtech, 'case-notes')
             }
           }
         }

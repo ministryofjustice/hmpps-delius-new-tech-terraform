@@ -1,6 +1,6 @@
 def project = [:]
 project.config    = 'hmpps-env-configs'
-project.iaps     = 'hmpps-delius-new-tech-terraform'
+project.newtech     = 'hmpps-delius-new-tech-terraform'
 
 // Parameters required for job
 // parameters:
@@ -63,7 +63,7 @@ pipeline {
         // delius-test
         stage('New Tech') {
           parallel {
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.network, 'case-notes')}}}
+            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'case-notes')}}}
           }
         }
     }
