@@ -7,7 +7,8 @@
         "command": [ "/bin/sh", "$(ps -ef | grep -v grep | grep -c pollPush.jar) || exit 1" ],
         "interval": 60,
         "retries": 2,
-        "startPeriod": 60
+        "startPeriod": 60,
+        "timeout": 5
     },
     "logConfiguration": {
         "logDriver": "awslogs",
@@ -73,5 +74,9 @@
             "name": "PUBLIC_KEY",
             "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/casenotes/nomis_public_key"
         }
-    ]
+    ],
+    "volumesFrom": [],
+    "mountPoints": [],
+    "portMappings": [],
+    "cpu": 0
 }]

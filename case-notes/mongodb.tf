@@ -45,6 +45,7 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
 
   volume {
     name = "mongodb-efs"
+
     docker_volume_configuration {
       scope         = "shared"
       autoprovision = true
@@ -56,10 +57,9 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
 }
 
 resource "aws_ecs_service" "mongodb_service" {
-  name            = "${local.name_prefix}-cnotesdb-pri-ecs"
-  cluster         = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_id}"
-  
-  
+  name    = "${local.name_prefix}-cnotesdb-pri-ecs"
+  cluster = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_id}"
+
   task_definition = "${aws_ecs_task_definition.mongodb_task_def.arn}"
 
   network_configuration = {

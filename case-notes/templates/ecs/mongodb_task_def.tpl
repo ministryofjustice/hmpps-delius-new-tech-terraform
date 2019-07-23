@@ -7,7 +7,8 @@
         "command": [ "CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongo localhost:27017/test --quiet || exit 1" ],
         "interval": 60,
         "retries": 2,
-        "startPeriod": 60
+        "startPeriod": 60,
+        "timeout": 5
     },
     "logConfiguration": {
         "logDriver": "awslogs",
@@ -30,5 +31,8 @@
             "containerPath": "/data/db",
             "sourceVolume": "mongodb-efs"
         }
-    ]
+    ],
+    "environment": [],
+    "volumesFrom": [],
+    "cpu": 0
 }]
