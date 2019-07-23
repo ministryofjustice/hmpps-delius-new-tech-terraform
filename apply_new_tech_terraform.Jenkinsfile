@@ -130,7 +130,8 @@ pipeline {
         stage('setup') {
             steps {
                 dir( project.config ) {
-                  git url: 'git@github.com:ministryofjustice/' + project.config, branch: 'master', credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
+                // TODO switch feature branch
+                  git url: 'git@github.com:ministryofjustice/' + project.config, branch: 'featire/DAM-21', credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
                 }
                 prepare_env()
             }
