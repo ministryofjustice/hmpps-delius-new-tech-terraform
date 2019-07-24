@@ -13,7 +13,6 @@
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-            "awslogs-create-group": "true",
             "awslogs-group": "${log_group_name}",
             "awslogs-region": "${region}",
             "awslogs-stream-prefix": "ecs-${container_name}"
@@ -29,7 +28,7 @@
     "mountPoints": [
         {
             "containerPath": "/data/db",
-            "sourceVolume": "mongodb-efs"
+            "sourceVolume": "${volume_name}"
         }
     ],
     "environment": [],

@@ -44,12 +44,18 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
   requires_compatibilities = ["EC2"]
 
   volume {
-    name = "mongodb-efs"
+    name = "${local.name_prefix}-cnotesdb-pri-ebs"
 
     docker_volume_configuration {
       scope         = "shared"
       autoprovision = true
-      driver        = "rexray/efs"
+      driver        = "cloudstor:aws"
+
+      driver_opts {
+        ebstype = "gp2"
+        backing = "relocatable"
+        size    = 10
+      }
     }
   }
 

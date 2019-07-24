@@ -78,3 +78,8 @@ variable "mongodb_conf" {
     memory        = "512"
   }
 }
+
+variable "log_retention" {
+  description = "Cloudwatch logs data retention in days"
+  default = "14"
+}

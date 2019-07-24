@@ -63,7 +63,7 @@ data "template_file" "casenotes_task_def_template" {
     container_name      = "casenotes"
     image_url           = "${var.casenotes_conf["image"]}"
     image_version       = "${var.casenotes_conf["image_version"]}"
-    log_group_name      = "${var.environment_name}/casenotes"
+    log_group_name      = "${local.name_prefix}-casenotes-pri-cwl"
     env_debug_log       = "${var.casenotes_conf["env_debug_log"]}"
     env_mongo_db_url    = "mongodb://mongodb.${data.terraform_remote_state.ecs_cluster.private_cluster_namespace["domain_name"]}:27017"
     env_mongo_db_name   = "${var.casenotes_conf["env_mongo_db_name"]}"
@@ -87,6 +87,7 @@ data "template_file" "mongodb_task_def_template" {
     container_name   = "mongodb"
     image_url        = "${var.mongodb_conf["image"]}"
     image_version    = "${var.mongodb_conf["image_version"]}"
-    log_group_name   = "${var.environment_name}/casenotes/mongodb"
+    log_group_name   = "${local.name_prefix}-cnotesdb-pri-cwl"
+    volume_name      = "${local.name_prefix}-cnotesdb-pri-ebs"
   }
 }
