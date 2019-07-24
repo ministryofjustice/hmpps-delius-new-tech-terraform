@@ -48,7 +48,7 @@ variable "casenotes_conf" {
 
   default = {
     image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-casenotes"
-    image_version = "latest"
+    image_version = "0.1.08"
     cpu           = "1024"
     memory        = "512"
 
@@ -81,5 +81,5 @@ variable "mongodb_conf" {
 
 variable "log_retention" {
   description = "Cloudwatch logs data retention in days"
-  default = "14"
+  default     = "14"
 }

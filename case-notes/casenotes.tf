@@ -3,14 +3,42 @@ resource "aws_security_group" "casenotes_sg" {
   name        = "${local.name_prefix}-casenotes-pri-sg"
   description = "New Tech Casenotes Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+}
 
-  # Allow all outbound
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "casenotes_https_out" {
+  type            = "egress"
+  from_port       = 443
+  to_port         = 443
+  protocol        = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.casenotes_sg.id}"
+}
+
+resource "aws_security_group_rule" "casenotes_dnssec_out" {
+  type            = "egress"
+  from_port       = 53
+  to_port         = 53
+  protocol        = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.casenotes_sg.id}"
+}
+
+resource "aws_security_group_rule" "casenotes_dns_out" {
+  type            = "egress"
+  from_port       = 53
+  to_port         = 53
+  protocol        = "udp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.casenotes_sg.id}"
+}
+
+resource "aws_security_group_rule" "casenotes_mongo_out" {
+  type            = "egress"
+  from_port       = 27017
+  to_port         = 27017
+  protocol        = "tcp"
+  source_security_group_id = "${aws_security_group.mongodb_sg.id}"
+  security_group_id = "${aws_security_group.casenotes_sg.id}"
 }
 
 resource "aws_ecs_task_definition" "casenotes_task_def" {
@@ -30,15 +58,16 @@ resource "aws_ecs_service" "casenotes_service" {
   cluster         = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_id}"
   task_definition = "${aws_ecs_task_definition.casenotes_task_def.arn}"
 
+  # When new tag and arn formats are accepted in an environment - tags can be propagated
+  # propagate_tags  = "TASK_DEFINITION"
+
   network_configuration = {
     subnets         = ["${local.private_subnet_ids}"]
     security_groups = ["${aws_security_group.casenotes_sg.id}"]
   }
-
   # Not horizontally scalable - single instance
   desired_count = 1
   depends_on    = ["aws_iam_role.casenotes_task_role"]
-
   lifecycle {
     ignore_changes = ["desired_count"]
   }

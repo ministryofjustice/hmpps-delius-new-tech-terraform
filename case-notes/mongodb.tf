@@ -14,22 +14,37 @@ resource "aws_security_group" "mongodb_sg" {
 
   # Allow all outbound
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
+
+# When EFS encryption is supported by rexray volume driver, should switch from EBC
 # This task needs access to the EFS volumes for persistent storage
-resource "aws_security_group_rule" "task_efssg_rule" {
-  type                     = "ingress"
-  from_port                = 2049
-  to_port                  = 2049
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.mongodb_sg.id}"
-  security_group_id        = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_efs_sg_id}"
-}
+# resource "aws_security_group_rule" "task_efssg_rule" {
+#   type                     = "ingress"
+#   from_port                = 2049
+#   to_port                  = 2049
+#   protocol                 = "tcp"
+#   source_security_group_id = "${aws_security_group.mongodb_sg.id}"
+#   security_group_id        = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_efs_sg_id}"
+# }
 
 resource "aws_ecs_task_definition" "mongodb_task_def" {
   family        = "${local.name_prefix}-cnotesdb-pri-ecs"
@@ -68,15 +83,16 @@ resource "aws_ecs_service" "mongodb_service" {
 
   task_definition = "${aws_ecs_task_definition.mongodb_task_def.arn}"
 
+  # When new tag and arn formats are accepted in an environment - tags can be propagated
+  # propagate_tags  = "TASK_DEFINITION"
+
   network_configuration = {
     subnets         = ["${local.db_subnet_ids}"]
     security_groups = ["${aws_security_group.mongodb_sg.id}"]
   }
-
   # Not horizontally scalable - single instance
   desired_count = 1
   depends_on    = ["aws_iam_role.mongodb_task_role"]
-
   lifecycle {
     ignore_changes = ["desired_count"]
   }
