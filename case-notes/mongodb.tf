@@ -93,6 +93,11 @@ resource "aws_ecs_service" "mongodb_service" {
   # Not horizontally scalable - single instance
   desired_count = 1
   depends_on    = ["aws_iam_role.mongodb_task_role"]
+
+  service_registries {
+    registry_arn = "${aws_service_discovery_service.mongodb_svc_record.arn}"
+    container_name = "mongodb"
+  }
   lifecycle {
     ignore_changes = ["desired_count"]
   }
