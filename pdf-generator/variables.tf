@@ -1,52 +1,67 @@
-variable "region" {
-  description = "The AWS region"
+variable "environment_name" {
+  type = "string"
+}
+
+variable "short_environment_name" {
+  type = "string"
 }
 
 variable "project_name" {
-  description = "The project name - delius new tech"
+  description = "The project name - delius-core"
+}
+
+variable "project_name_abbreviated" {
+  description = "The abbreviated project name, e.g. dat-> delius auto test"
 }
 
 variable "environment_type" {
   description = "The environment type - e.g. dev"
 }
 
+variable "region" {
+  description = "The AWS region."
+}
+
+variable "remote_state_bucket_name" {
+  description = "Terraform remote state bucket name"
+}
+
 variable "environment_identifier" {
-  description = "The environment identifier"
+  description = "resource label or name"
 }
 
-variable "pdf_generator_min_asg_size" {
-  type = "string"
+variable "short_environment_identifier" {
+  description = "shortend resource label or name"
 }
 
-variable "pdf_generator_max_asg_size" {
-  type = "string"
-}
-
-variable "pdf_generator_instance_type" {
-  type = "string"
-}
-
-variable "pdf_generator_lower_cpu_trigger" {
-  type = "string"
-}
-
-variable "pdf_generator_upper_cpu_trigger" {
-  type = "string"
-}
-
-variable "pdf_generator_debug_log" {
-  type = "string"
-}
-
-variable "vpc_cidr" {
-  description = "The CIDR block assigned to the VPC"
+variable "dependencies_bucket_arn" {
+  description = "S3 bucket arn for dependencies"
 }
 
 variable "tags" {
   type = "map"
-  description = "Default tag set"
 }
 
-variable "route53_domain_private" {
-  description = "The DNS domain for all HMPPS probation services"
+variable "pdfgenerator_conf" {
+  description = "Config map for case notes poll/push task"
+  type        = "map"
+
+  default = {
+    image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-pdfgenerator"
+    image_version = "0.1.08"
+    cpu           = "1024"
+    memory        = "512"
+    # ECS Task App Autoscaling min and max thresholds
+    ecs_scaling_min_capacity = 1
+    ecs_scaling_max_capacity = 5
+    # ECS Task App AutoScaling will kick in above avg cpu util set here
+    ecs_target_cpu = "60"
+    # Task Def Env Vars
+    env_debug_log     = "false"
+  }
+}
+
+variable "cloudwatch_log_retention" {
+  description = "Cloudwatch logs data retention in days"
+  default     = "14"
 }
