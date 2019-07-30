@@ -51,13 +51,17 @@ variable "pdfgenerator_conf" {
     image_version = "0.1.08"
     cpu           = "1024"
     memory        = "512"
+
     # ECS Task App Autoscaling min and max thresholds
     ecs_scaling_min_capacity = 1
     ecs_scaling_max_capacity = 5
+
     # ECS Task App AutoScaling will kick in above avg cpu util set here
     ecs_target_cpu = "60"
+
     # Task Def Env Vars
-    env_debug_log     = "false"
+    env_debug_log    = "false"
+    env_service_port = 8080
   }
 }
 

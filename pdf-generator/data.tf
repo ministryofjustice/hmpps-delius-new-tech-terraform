@@ -51,14 +51,15 @@ data "template_file" "pdf_task_def_template" {
   template = "${file("templates/ecs/pdfgenerator_task_def.tpl")}"
 
   vars {
-    region              = "${var.region}"
-    aws_account_id      = "${data.aws_caller_identity.current.account_id}"
-    environment_name    = "${var.environment_name}"
-    project_name        = "${var.project_name}"
-    container_name      = "pdfgenerator"
-    image_url           = "${var.pdfgenerator_conf["image"]}"
-    image_version       = "${var.pdfgenerator_conf["image_version"]}"
-    log_group_name      = "${local.name_prefix}-pdfgen-pri-cwl"
-    env_debug_log       = "${var.pdfgenerator_conf["env_debug_log"]}"
+    region           = "${var.region}"
+    aws_account_id   = "${data.aws_caller_identity.current.account_id}"
+    environment_name = "${var.environment_name}"
+    project_name     = "${var.project_name}"
+    container_name   = "pdfgenerator"
+    image_url        = "${var.pdfgenerator_conf["image"]}"
+    image_version    = "${var.pdfgenerator_conf["image_version"]}"
+    env_service_port = "${var.pdfgenerator_conf["env_service_port"]}"
+    log_group_name   = "${local.name_prefix}-pdfgen-pri-cwl"
+    env_debug_log    = "${var.pdfgenerator_conf["env_debug_log"]}"
   }
 }

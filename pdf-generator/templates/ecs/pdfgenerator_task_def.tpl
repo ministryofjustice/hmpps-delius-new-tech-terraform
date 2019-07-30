@@ -22,11 +22,21 @@
         {
           "name": "DEBUG_LOG",
           "value": "${env_debug_log}"
+        },
+        {
+            "name": "PORT",
+            "value": "${env_service_port}"
         }
       ],
     "secrets": [],
     "volumesFrom": [],
     "mountPoints": [],
-    "portMappings": [],
+    "portMappings": [
+        { 
+               "containerPort": ${env_service_port},
+               "hostPort": ${env_service_port},
+               "protocol": "tcp"
+            }
+    ],
     "cpu": 0
 }]

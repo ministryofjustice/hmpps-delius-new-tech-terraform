@@ -6,29 +6,29 @@ resource "aws_security_group" "pdf_sg" {
 }
 
 resource "aws_security_group_rule" "pdf_https_out" {
-  type            = "egress"
-  from_port       = 443
-  to_port         = 443
-  protocol        = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.pdf_sg.id}"
 }
 
 resource "aws_security_group_rule" "pdf_dnssec_out" {
-  type            = "egress"
-  from_port       = 53
-  to_port         = 53
-  protocol        = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.pdf_sg.id}"
 }
 
 resource "aws_security_group_rule" "pdf_dns_out" {
-  type            = "egress"
-  from_port       = 53
-  to_port         = 53
-  protocol        = "udp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "udp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.pdf_sg.id}"
 }
 
@@ -56,9 +56,9 @@ resource "aws_ecs_service" "pdf_service" {
     subnets         = ["${local.private_subnet_ids}"]
     security_groups = ["${aws_security_group.pdf_sg.id}"]
   }
-  depends_on    = ["aws_iam_role.pdf_task_role"]
+  depends_on = ["aws_iam_role.pdf_task_role"]
   service_registries {
-    registry_arn = "${aws_service_discovery_service.pdf_svc_record.arn}"
+    registry_arn   = "${aws_service_discovery_service.pdf_svc_record.arn}"
     container_name = "pdfgenerator"
   }
   lifecycle {
@@ -76,16 +76,18 @@ resource "aws_appautoscaling_target" "pdf_scaling_target" {
 }
 
 resource "aws_appautoscaling_policy" "pdf_scaling_policy" {
-  name                       = "${local.name_prefix}-pdfgen-pri-aas"
-  policy_type                = "TargetTrackingScaling"
-  resource_id                = "${aws_appautoscaling_target.pdf_scaling_target.resource_id}"
-  scalable_dimension         = "${aws_appautoscaling_target.pdf_scaling_target.scalable_dimension}"
-  service_namespace          = "${aws_appautoscaling_target.pdf_scaling_target.service_namespace}"
+  name               = "${local.name_prefix}-pdfgen-pri-aas"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = "${aws_appautoscaling_target.pdf_scaling_target.resource_id}"
+  scalable_dimension = "${aws_appautoscaling_target.pdf_scaling_target.scalable_dimension}"
+  service_namespace  = "${aws_appautoscaling_target.pdf_scaling_target.service_namespace}"
+
   target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
     }
-    target_value             = "${var.pdfgenerator_conf["ecs_target_cpu"]}"
+
+    target_value = "${var.pdfgenerator_conf["ecs_target_cpu"]}"
   }
 }
 
@@ -109,4 +111,3 @@ resource "aws_service_discovery_service" "pdf_svc_record" {
     failure_threshold = 1
   }
 }
-
