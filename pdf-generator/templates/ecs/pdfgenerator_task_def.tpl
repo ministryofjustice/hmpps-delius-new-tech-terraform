@@ -4,7 +4,7 @@
     "essential": true,
     "interactive": true,
     "healthCheck": {
-        "command": [ "/bin/sh", "$(curl http://localhost:8080/healthcheck | jq -r -e '.|select(.status==\"OK\")|length') || exit 1" ],
+        "command": [ "CMD-SHELL", "curl -s http://localhost:8080/healthcheck | jq -r -e '.|select(.status==\"OK\")' || exit 1" ],
         "interval": 60,
         "retries": 2,
         "startPeriod": 60,
