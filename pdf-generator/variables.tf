@@ -48,7 +48,7 @@ variable "pdfgenerator_conf" {
 
   default = {
     image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-pdfgenerator"
-    image_version = "0.1.08"
+    image_version = "0.1.768"
     cpu           = "1024"
     memory        = "512"
 
