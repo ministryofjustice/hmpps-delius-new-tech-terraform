@@ -4,7 +4,7 @@
     "essential": true,
     "interactive": true,
     "healthCheck": {
-        "command": [ "/bin/sh", "$(ps -ef | grep -v grep | grep -c pollPush.jar) || exit 1" ],
+        "command": [ "CMD-SHELL", "ps -ef | grep -v grep | grep pollPush.jar || exit 1" ],
         "interval": 60,
         "retries": 2,
         "startPeriod": 60,

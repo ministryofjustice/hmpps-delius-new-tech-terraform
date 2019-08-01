@@ -150,6 +150,14 @@ pipeline {
           }
         }
 
+        stage('New Tech PDF Generator') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'pdf-generator')
+            }
+          }
+        }
+
     }
 
     post {
