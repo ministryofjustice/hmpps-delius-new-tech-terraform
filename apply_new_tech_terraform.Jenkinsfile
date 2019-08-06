@@ -158,6 +158,14 @@ pipeline {
           }
         }
 
+        stage('New Tech Offender API') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'offender-api')
+            }
+          }
+        }
+
     }
 
     post {
