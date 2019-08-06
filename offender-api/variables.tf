@@ -61,7 +61,7 @@ variable "offenderapi_conf" {
 
     # Task Def Env Vars
     env_service_port               = 8080
-    env_oracledb_servicename       = "DNDA"
+    env_oracledb_servicename       = "DNDA_TAF"
     env_spring_profiles_active     = "oracle"
     env_spring_datasource_username = "delius_pool"
   }
