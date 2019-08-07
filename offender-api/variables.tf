@@ -64,6 +64,7 @@ variable "offenderapi_conf" {
     env_oracledb_servicename       = "DNDA_TAF"
     env_spring_profiles_active     = "oracle"
     env_spring_datasource_username = "delius_pool"
+    env_debug                      = "false"
   }
 }
 

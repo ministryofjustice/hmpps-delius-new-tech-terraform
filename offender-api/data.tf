@@ -97,5 +97,6 @@ data "template_file" "offenderapi_task_def_template" {
     env_spring_datasource_username = "${var.offenderapi_conf["env_spring_datasource_username"]}"
     env_spring_ldap_username       = "${data.terraform_remote_state.delius_ldap.ldap_bind_user}"
     env_oracledb_servicename       = "${var.offenderapi_conf["env_oracledb_servicename"]}"
+    env_debug                      = "${var.offenderapi_conf["env_debug"]}"
   }
 }

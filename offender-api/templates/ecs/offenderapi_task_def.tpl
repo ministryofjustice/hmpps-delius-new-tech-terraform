@@ -38,6 +38,10 @@
         {
             "name": "SPRING_LDAP_USERNAME",
             "value": "${env_spring_ldap_username}"
+        },
+        {
+            "name": "DEBUG",
+            "value": "${env_debug}"
         }
       ],
     "secrets": [
