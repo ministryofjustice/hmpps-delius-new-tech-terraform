@@ -70,6 +70,7 @@ pipeline {
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'case-notes')}}}
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'pdf-generator')}}}
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-api')}}}
+            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'search')}}}
           }
         }
     }

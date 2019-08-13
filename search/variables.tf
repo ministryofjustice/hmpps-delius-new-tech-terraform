@@ -1,0 +1,94 @@
+variable "environment_name" {
+  type = "string"
+}
+
+variable "short_environment_name" {
+  type = "string"
+}
+
+variable "project_name" {
+  description = "The project name - delius-core"
+}
+
+variable "project_name_abbreviated" {
+  description = "The abbreviated project name, e.g. dat-> delius auto test"
+}
+
+variable "environment_type" {
+  description = "The environment type - e.g. dev"
+}
+
+variable "region" {
+  description = "The AWS region."
+}
+
+variable "remote_state_bucket_name" {
+  description = "Terraform remote state bucket name"
+}
+
+variable "environment_identifier" {
+  description = "resource label or name"
+}
+
+variable "short_environment_identifier" {
+  description = "shortend resource label or name"
+}
+
+variable "dependencies_bucket_arn" {
+  description = "S3 bucket arn for dependencies"
+}
+
+variable "tags" {
+  type = "map"
+}
+
+variable "search_conf" {
+  description = "Config map for New Tech ElasticSearch service"
+  type        = "map"
+
+  default = {
+    es_domain  = "newtech-search"
+    es_version = "6.7"
+
+    # Cluster config
+    # Data node count
+    es_instance_count = 1
+
+    # See the following for restrictions around instance types
+    # https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-supported-instance-types.html
+    es_instance_type = "m5.large.elasticsearch"
+
+    es_dedicated_master_enabled = false
+    es_dedicated_master_count   = 0
+    es_dedicated_master_type    = ""
+    es_zone_aware_enabled       = false
+
+    # Number of AZs and Subnets is calculated based on es_instance_count value
+
+    # Encryption Options
+    es_internode_encryption = true
+    # Encrypt at rest only valid if ebs enabled below
+    es_ebs_encrypted = true
+    # EBS Options
+    es_ebs_enabled = true
+    es_ebs_type    = "gp2"
+    es_ebs_size    = 20
+    # Depends on instance type - see restrictions: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-supported-instance-types.html
+    es_ebs_encryption = true
+    es_snapshot_hour  = 01
+    # Logging
+    es_logging_enabled = true
+    # Valid values: INDEX_SLOW_LOGS, SEARCH_SLOW_LOGS, ES_APPLICATION_LOGS
+    es_log_type           = "ES_APPLICATION_LOGS"
+    es_log_retention_days = 14
+  }
+}
+
+variable "search_advanced_cluster_config" {
+  description = "Advanced ElasticSearch config values"
+  type        = "map"
+
+  default = {
+    "rest.action.multi.allow_explicit_index" = "true"
+  }
+}
