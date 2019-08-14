@@ -4,6 +4,12 @@ resource "aws_security_group" "search_sg" {
   name        = "${local.name_prefix}-search-pri-sg"
   description = "New Tech ElasticSearch Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+    tags = "${
+      merge(
+          var.tags, 
+          map("Name", "${local.name_prefix}-search-pri-ecs")
+          )
+        }"
 }
 
 resource "aws_security_group_rule" "search_ingress_bastion" {
@@ -56,7 +62,14 @@ resource "aws_elasticsearch_domain" "search_domain" {
     enabled = "${var.search_conf["es_internode_encryption"]}"
   }
 
-  advanced_options = "${var.search_advanced_cluster_config}"
+  cognito_options {
+    enabled          = "${var.search_conf["auth_enabled"]}"
+    user_pool_id     = "${aws_cognito_user_pool.search_user_pool.id}"
+    identity_pool_id = "${aws_cognito_identity_pool.search_identity_pool.id}"
+    role_arn         = "${aws_iam_role.search_kibana_role.arn}"
+  }
+
+  advanced_options = "${var.search_advanced_cluster_conf}"
 
   access_policies = "${data.template_file.search_accesspolicy_template.rendered}"
 
@@ -78,16 +91,26 @@ resource "aws_elasticsearch_domain" "search_domain" {
           )
         }"
 
+  # Explicitly declare dependencies - TF doesn't graph these well enough
   depends_on = [
     "aws_iam_service_linked_role.search",
+    "aws_iam_role.search_kibana_role",
     "aws_cloudwatch_log_resource_policy.search_log_access",
   ]
 
   # Workaround for issue always applying update when none needed on single instance domains
-  # Given the cluster can't be updated beyond it's initial multi az setup, this should be safe
+  # Given a cluster multi az setup can't be updated after initial creation, this should be safe
   lifecycle {
     ignore_changes = [
-      "cluster_config.0.zone_awareness_config"
+      "cluster_config.0.zone_awareness_config",
     ]
   }
+}
+
+# Value must be updated when administering the webops kibana user in cognito
+# This is just a placeholder to store the secure password
+resource "aws_ssm_parameter" "kibana_webops_password" {
+  name  = "${local.name_prefix}-kibana-pri-ssm"
+  type  = "SecureString"
+  value = "null"
 }

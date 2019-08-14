@@ -81,14 +81,40 @@ variable "search_conf" {
     # Valid values: INDEX_SLOW_LOGS, SEARCH_SLOW_LOGS, ES_APPLICATION_LOGS
     es_log_type           = "ES_APPLICATION_LOGS"
     es_log_retention_days = 14
+    # Authentication
+    auth_enabled = true
   }
 }
 
-variable "search_advanced_cluster_config" {
+variable "search_advanced_cluster_conf" {
   description = "Advanced ElasticSearch config values"
   type        = "map"
 
   default = {
     "rest.action.multi.allow_explicit_index" = "true"
+  }
+}
+
+variable "search_cognito_conf" {
+  description = "Cognito config for kibana auth"
+  type        = "map"
+
+  default = {
+    # Password policy parameters
+    password_min_length = 16
+    password_uppercase  = true
+    password_lowercase  = true
+    password_numbers    = true
+    password_symbols    = true
+
+    # Admin only to create users. If false, users can sign up themselves
+    admin_only_create = true
+
+    # Pool domain for Cognito managed login page
+    domain = "newtech-search"
+
+    # Optional email attribute and associated settings
+    email_required           = false
+    auto_verified_attributes = "email"
   }
 }
