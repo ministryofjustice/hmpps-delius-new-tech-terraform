@@ -73,8 +73,7 @@ variable "search_conf" {
     es_ebs_enabled = true
     es_ebs_type    = "gp2"
     es_ebs_size    = 20
-    # Depends on instance type - see restrictions: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-supported-instance-types.html
-    es_ebs_encryption = true
+    
     es_snapshot_hour  = 01
     # Logging
     es_logging_enabled = true
