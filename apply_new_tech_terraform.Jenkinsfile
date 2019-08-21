@@ -166,6 +166,13 @@ pipeline {
           }
         }
 
+        stage('New Tech ElasticSearch') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'search')
+            }
+          }
+        }
     }
 
     post {
