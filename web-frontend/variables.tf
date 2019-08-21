@@ -47,9 +47,9 @@ variable "web_conf" {
   type        = "map"
 
   default = {
-    image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
+    image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
     image_version = "0.2.20"
-    env_service_port = 9000
+    service_port  = 9000
     cpu           = "1024"
     memory        = "512"
 
@@ -59,6 +59,25 @@ variable "web_conf" {
 
     # ECS Task App AutoScaling will kick in above avg cpu util set here
     ecs_target_cpu = "60"
-    debug = false
+
+    # Web env vars - defaults mirror those set in the app's application.conf file
+    env_analytics_mongo_connection       = "mongodb://mongodb.ecs.cluster"            # ANALYTICS_MONGO_CONNECTION=<the URL of you MongoDb instance>/analytics
+    env_application_secret               = ""                                         # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
+    env_elastic_search_host              = ""                                         # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
+    env_elastic_search_port              = 443                                        # ELASTIC_SEARCH_PORT
+    env_elastic_search_scheme            = "https"                                    # ELASTIC_SEARCH_SCHEME= 
+    env_nomis_api_base_url               = ":8080/api/"                               # NOMIS_API_BASE_URL=<the URL of the NOMIS system> 
+    env_nomis_payload_token              = ""                                         # NOMIS_PAYLOAD_TOKEN - no default - a value will be pulled from ssm at build time
+    env_nomis_private_key                = ""                                         # NOMIS_PRIVATE_KEY - no default - a value will be pulled from ssm at build time
+    env_offender_api_provider            = "http://offenderapi.ecs.cluster:8080/api/" # OFFENDER_API_PROVIDER
+    env_params_user_token_valid_duration = "1h"                                       # PARAMS_USER_TOKEN_VALID_DURATION
+    env_pdf_generator_url                = "http://pdfgenerator.ecs.cluster:8080/"    # PDF_GENERATOR_URL
+    env_store_alfresco_url               = "http://alfresco/alfresco/service/"        # STORE_ALFRESCO_URL
+    env_store_provider                   = "mongo"                                    # STORE_PROVIDER
   }
+}
+
+variable "cloudwatch_log_retention" {
+  description = "Cloudwatch logs data retention in days"
+  default     = "14"
 }

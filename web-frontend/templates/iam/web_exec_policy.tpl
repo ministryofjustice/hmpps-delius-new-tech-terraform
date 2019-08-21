@@ -25,8 +25,19 @@
         "kms:Decrypt"
       ],
       "Resource": [
-          ""
+          "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/application_secret",
+          "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_token",
+          "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_private_key",
+          "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/auth_feedback_password",
+          "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm"
       ]
+    },
+    {
+      "Action": [
+        "es:ESHttp*"
+      ],
+      "Effect": "Allow",
+      "Resource": "${domain_arn}"
     }
   ]
 }

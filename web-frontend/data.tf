@@ -53,6 +53,42 @@ data "terraform_remote_state" "newtech_search" {
   }
 }
 
+# Load in new tech pdf generator state
+data "terraform_remote_state" "newtech_pdf" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "pdf-generator/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
+# Load in new tech offender api
+data "terraform_remote_state" "newtech_offenderapi" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "offender-api/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
+# Load in new tech casenotes service for mongo access api
+data "terraform_remote_state" "newtech_casenotes" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "case-notes/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
+# Get current context for things like account id
+data "aws_caller_identity" "current" {}
+
 # Template files for New Tech Web Frontend task role and execution role definitions
 data "template_file" "ecstasks_assumerole_template" {
   template = "${file("${path.module}/templates/iam/ecstasks_assumerole_policy.tpl")}"
@@ -67,23 +103,36 @@ data "template_file" "web_policy_template" {
     aws_account_id   = "${data.aws_caller_identity.current.account_id}"
     environment_name = "${var.environment_name}"
     project_name     = "${var.project_name}"
+    domain_arn       = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
   }
 }
 
 # New Tech Web Frontend task definition template
 data "template_file" "web_task_def_template" {
-  template = "${file("templates/ecs/web_task_def.tpl")}"
+  template = "${file("${path.module}/templates/ecs/web_task_def.tpl")}"
 
   vars {
-    region                         = "${var.region}"
-    aws_account_id                 = "${data.aws_caller_identity.current.account_id}"
-    environment_name               = "${var.environment_name}"
-    project_name                   = "${var.project_name}"
-    container_name                 = "newtech-web"
-    image_url                      = "${var.webconf["image"]}"
-    image_version                  = "${var.web_conf["image_version"]}"
-    env_service_port               = "${var.web_conf["env_service_port"]}"
-    log_group_name                 = "${aws_cloudwatch_log_group.web_log_group.name}"
-    env_debug                      = "${var.offenderapi_conf["env_debug"]}"
+    region                               = "${var.region}"
+    aws_account_id                       = "${data.aws_caller_identity.current.account_id}"
+    environment_name                     = "${var.environment_name}"
+    project_name                         = "${var.project_name}"
+    container_name                       = "newtechweb"
+    image_url                            = "${var.web_conf["image"]}"
+    image_version                        = "${var.web_conf["image_version"]}"
+    service_port                         = "${var.web_conf["service_port"]}"
+    log_group_name                       = "${aws_cloudwatch_log_group.web_log_group.name}"
+    env_analytics_mongo_connection       = "${var.web_conf["env_analytics_mongo_connection"]}"
+    env_application_secret               = "${var.web_conf["env_application_secret"]}"
+    env_elastic_search_host              = "${var.web_conf["env_elastic_search_host"]}"
+    env_elastic_search_port              = "${var.web_conf["env_elastic_search_port"]}"
+    env_elastic_search_scheme            = "${var.web_conf["env_elastic_search_scheme"]}"
+    env_nomis_api_base_url               = "${var.web_conf["env_nomis_api_base_url"]}"
+    env_nomis_payload_token              = "${var.web_conf["env_nomis_payload_token"]}"
+    env_nomis_private_key                = "${var.web_conf["env_nomis_private_key"]}"
+    env_offender_api_provider            = "${var.web_conf["env_offender_api_provider"]}"
+    env_params_user_token_valid_duration = "${var.web_conf["env_params_user_token_valid_duration"]}"
+    env_pdf_generator_url                = "${var.web_conf["env_pdf_generator_url"]}"
+    env_store_alfresco_url               = "${var.web_conf["env_store_alfresco_url"]}"
+    env_store_provider                   = "${var.web_conf["env_store_provider"]}"
   }
 }

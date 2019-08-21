@@ -20,22 +20,70 @@
     },
     "environment": [
         {
-          "name": "SOME_ENV",
-          "value": ""
+          "name": "PARAMS_USER_TOKEN_VALID_DURATION",
+          "value": "${env_params_user_token_valid_duration}"
+        },
+        {
+          "name": "STORE_PROVIDER",
+          "value": "${env_store_provider}"
+        },
+        {
+          "name": "OFFENDER_API_PROVIDER",
+          "value": "${env_offender_api_provider}"
+        },
+        {
+          "name": "ELASTIC_SEARCH_HOST",
+          "value": "${env_elastic_search_host}"
+        },
+        {
+          "name": "ELASTIC_SEARCH_PORT",
+          "value": "${env_elastic_search_port}"
+        },
+        {
+          "name": "ELASTIC_SEARCH_SCHEME",
+          "value": "${env_elastic_search_scheme}"
+        },
+        {
+          "name": "NOMIS_API_BASE_URL",
+          "value": "${env_nomis_api_base_url}"
+        },
+        {
+          "name": "ANALYTICS_MONGO_CONNECTION",
+          "value": "${env_analytics_mongo_connection}"
+        },
+        {
+            "name": "PDF_GENERATOR_URL",
+            "value": "${env_pdf_generator_url}"
+        },
+        {
+            "name": "STORE_ALFRESCO_URL",
+            "value": "${env_store_alfresco_url}"
         }
       ],
     "secrets": [
         {
             "name": "APPLICATION_SECRET",
-            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/delius-database/db/delius_pool_password"
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/application_secret"
+        },
+        {
+            "name": "NOMIS_PAYLOAD_TOKEN",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_token"
+        },
+        {
+            "name": "NOMIS_PRIVATE_KEY",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_private_key"
+        },
+        {
+            "name": "AUTH_FEEDBACK_PASSWORD",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/auth_feedback_password"
         }
     ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [
         { 
-               "containerPort": ${env_service_port},
-               "hostPort": ${env_service_port},
+               "containerPort": ${service_port},
+               "hostPort": ${service_port},
                "protocol": "tcp"
             }
     ],
