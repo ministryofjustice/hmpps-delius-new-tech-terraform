@@ -42,6 +42,16 @@ variable "tags" {
   type = "map"
 }
 
+variable "ansible_vars" {
+  default = {}
+  type    = "map"
+}
+
+variable "default_ansible_vars" {
+  default = {}
+  type    = "map"
+}
+
 variable "web_conf" {
   description = "Config map for New Tech Web Fronted ECS task"
   type        = "map"
@@ -65,10 +75,9 @@ variable "web_conf" {
     env_application_secret               = ""                                         # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
     env_elastic_search_host              = ""                                         # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
     env_elastic_search_port              = 443                                        # ELASTIC_SEARCH_PORT
-    env_elastic_search_scheme            = "https"                                    # ELASTIC_SEARCH_SCHEME= 
-    env_nomis_api_base_url               = ":8080/api/"                               # NOMIS_API_BASE_URL=<the URL of the NOMIS system> 
-    env_nomis_payload_token              = ""                                         # NOMIS_PAYLOAD_TOKEN - no default - a value will be pulled from ssm at build time
-    env_nomis_private_key                = ""                                         # NOMIS_PRIVATE_KEY - no default - a value will be pulled from ssm at build time
+    env_elastic_search_scheme            = "https"                                    # ELASTIC_SEARCH_SCHEME=
+    env_custody_api_auth_username        = ""                                         # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
+    env_custody_api_auth_password        = ""                                         # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
     env_offender_api_provider            = "http://offenderapi.ecs.cluster:8080/api/" # OFFENDER_API_PROVIDER
     env_params_user_token_valid_duration = "1h"                                       # PARAMS_USER_TOKEN_VALID_DURATION
     env_pdf_generator_url                = "http://pdfgenerator.ecs.cluster:8080/"    # PDF_GENERATOR_URL

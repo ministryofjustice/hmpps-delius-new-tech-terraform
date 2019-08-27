@@ -26,6 +26,15 @@ resource "aws_security_group_rule" "web_offenderapi_out" {
   security_group_id        = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
 }
 
+resource "aws_security_group_rule" "web_search_out" {
+  type                     = "egress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
+  security_group_id        = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
+}
+
 # Target Ingress Rules - defined here to avoid circular dependency
 resource "aws_security_group_rule" "offenderapi_web_in" {
   type                     = "ingress"
@@ -52,6 +61,15 @@ resource "aws_security_group_rule" "mongo_web_in" {
   protocol                 = "tcp"
   source_security_group_id = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
   security_group_id        = "${data.terraform_remote_state.newtech_casenotes.mongo_sg_id}"
+}
+
+resource "aws_security_group_rule" "search_in" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
+  security_group_id        = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
 }
 
 # Ingress to Alfresco is via an externally facing ELB

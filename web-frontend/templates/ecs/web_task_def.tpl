@@ -66,16 +66,12 @@
             "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/application_secret"
         },
         {
-            "name": "NOMIS_PAYLOAD_TOKEN",
-            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_token"
+            "name": "CUSTODY_API_USERNAME",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_username"
         },
         {
-            "name": "NOMIS_PRIVATE_KEY",
-            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/nomis_private_key"
-        },
-        {
-            "name": "AUTH_FEEDBACK_PASSWORD",
-            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/auth_feedback_password"
+            "name": "CUSTODY_API_PASSWORD",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_password"
         }
     ],
     "volumesFrom": [],
