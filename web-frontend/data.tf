@@ -95,7 +95,7 @@ data "template_file" "ecstasks_assumerole_template" {
   vars     = {}
 }
 
-data "template_file" "web_policy_template" {
+data "template_file" "web_exec_policy_template" {
   template = "${file("${path.module}/templates/iam/web_exec_policy.tpl")}"
 
   vars = {
@@ -103,6 +103,13 @@ data "template_file" "web_policy_template" {
     aws_account_id   = "${data.aws_caller_identity.current.account_id}"
     environment_name = "${var.environment_name}"
     project_name     = "${var.project_name}"
+  }
+}
+
+data "template_file" "web_policy_template" {
+  template = "${file("${path.module}/templates/iam/web_policy.tpl")}"
+
+  vars = {
     domain_arn       = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
   }
 }

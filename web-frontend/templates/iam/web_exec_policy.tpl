@@ -30,13 +30,6 @@
           "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_password",
           "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm"
       ]
-    },
-    {
-      "Action": [
-        "es:ESHttp*"
-      ],
-      "Effect": "Allow",
-      "Resource": "${domain_arn}"
     }
   ]
 }
