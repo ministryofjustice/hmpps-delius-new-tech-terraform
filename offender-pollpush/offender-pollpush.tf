@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "offenderpoll_offapi_out" {
   from_port                = 8080
   to_port                  = 8080
   protocol                 = "tcp"
-  source_security_group_id = "${data.terraform_remote_state.newtech_offapi.offapi_sg_id}"
+  source_security_group_id = "${data.terraform_remote_state.newtech_offapi.offenderapi_sg_id}"
   security_group_id        = "${aws_security_group.offenderpoll_sg.id}"
 }
 
@@ -48,7 +48,7 @@ resource "aws_security_group_rule" "offenderpoll_offapi_in" {
   to_port                  = 8080
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.offenderpoll_sg.id}"
-  security_group_id        = "${data.terraform_remote_state.newtech_offapi.offapi_sg_id}"
+  security_group_id        = "${data.terraform_remote_state.newtech_offapi.offenderapi_sg_id}"
 }
 
 resource "aws_security_group_rule" "offenderpoll_searchin" {

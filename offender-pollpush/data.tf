@@ -108,7 +108,7 @@ data "template_file" "offenderpollpush_task_def_template" {
     env_debug_log              = "${var.offenderpollpush_conf["env_debug_log"]}"
     env_index_all_offenders    = "${var.offenderpollpush_conf["env_index_all_offenders"]}"
     env_ingestion_pipeline     = "${var.offenderpollpush_conf["env_ingestion_pipeline"]}"
-    env_delius_api_base_url    = "${var.offenderpollpush_conf["env_delius_api_base_url"]}"
+    env_delius_api_base_url    = "${data.terraform_remote_state.newtech_offapi.newtech_offenderapi_endpoint}"
     env_delius_api_username    = "${var.offenderpollpush_conf["env_delius_api_username"]}"
     env_elastic_search_scheme  = "${var.offenderpollpush_conf["env_elastic_search_scheme"]}"
     env_elastic_search_host    = "${data.terraform_remote_state.newtech_search.newtech_search_config["endpoint"]}"

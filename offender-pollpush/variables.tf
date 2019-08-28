@@ -56,7 +56,6 @@ variable "offenderpollpush_conf" {
     env_debug_log             = "false"
     env_index_all_offenders   = "false"
     env_ingestion_pipeline    = "pnc-pipeline"
-    env_delius_api_base_url   = "http://offenderapi.ecs.cluster:8080/api"
     env_delius_api_username   = "NationalUser"
     env_elastic_search_scheme = "https"
     env_elastic_search_port   = "443"
