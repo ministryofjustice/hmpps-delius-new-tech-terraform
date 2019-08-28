@@ -2,38 +2,43 @@ resource "aws_security_group" "mongodb_sg" {
   name        = "${local.name_prefix}-cnotesdb-pri-sg"
   description = "New Tech Casenotes Mongo DB Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
-
-  # Allow inbound mongo client from casenotes task sg
-  ingress {
-    # TLS (change to whatever ports you need)
-    from_port       = 27017
-    to_port         = 27017
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.casenotes_sg.id}"]
-  }
-
-  # Allow all outbound
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 53
-    to_port     = 53
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 53
-    to_port     = 53
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
+resource "aws_security_group_rule" "mongodb_https_out" {
+  type            = "egress"
+  from_port       = 443
+  to_port         = 443
+  protocol        = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.mongodb_sg.id}"
+}
+
+resource "aws_security_group_rule" "mongodb_dnssec_out" {
+  type            = "egress"
+  from_port       = 53
+  to_port         = 53
+  protocol        = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.mongodb_sg.id}"
+}
+
+resource "aws_security_group_rule" "mongodb_dns_out" {
+  type            = "egress"
+  from_port       = 53
+  to_port         = 53
+  protocol        = "udp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.mongodb_sg.id}"
+}
+
+resource "aws_security_group_rule" "mongodb_casenotes_in" {
+  type            = "ingress"
+  from_port       = 27017
+  to_port         = 27017
+  protocol        = "tcp"
+  source_security_group_id = "${aws_security_group.casenotes_sg.id}"
+  security_group_id = "${aws_security_group.mongodb_sg.id}"
+}
 
 # When EFS encryption is supported by rexray volume driver, should switch from EBC
 # This task needs access to the EFS volumes for persistent storage

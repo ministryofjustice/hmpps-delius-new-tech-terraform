@@ -134,9 +134,9 @@ data "template_file" "web_task_def_template" {
     env_elastic_search_port              = "${var.web_conf["env_elastic_search_port"]}"
     env_elastic_search_scheme            = "${var.web_conf["env_elastic_search_scheme"]}"
     env_nomis_api_base_url               = "${lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"])}"
-    env_offender_api_provider            = "${var.web_conf["env_offender_api_provider"]}"
+    env_offender_api_provider            = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}"
     env_params_user_token_valid_duration = "${var.web_conf["env_params_user_token_valid_duration"]}"
-    env_pdf_generator_url                = "${var.web_conf["env_pdf_generator_url"]}"
+    env_pdf_generator_url                = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}"
     env_store_alfresco_url               = "${var.web_conf["env_store_alfresco_url"]}"
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
   }

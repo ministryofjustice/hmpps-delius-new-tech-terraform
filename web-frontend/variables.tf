@@ -78,9 +78,7 @@ variable "web_conf" {
     env_elastic_search_scheme            = "https"                                    # ELASTIC_SEARCH_SCHEME=
     env_custody_api_auth_username        = ""                                         # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
     env_custody_api_auth_password        = ""                                         # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
-    env_offender_api_provider            = "http://offenderapi.ecs.cluster:8080/api/" # OFFENDER_API_PROVIDER
     env_params_user_token_valid_duration = "1h"                                       # PARAMS_USER_TOKEN_VALID_DURATION
-    env_pdf_generator_url                = "http://pdfgenerator.ecs.cluster:8080/"    # PDF_GENERATOR_URL
     env_store_alfresco_url               = "http://alfresco/alfresco/service/"        # STORE_ALFRESCO_URL
     env_store_provider                   = "mongo"                                    # STORE_PROVIDER
   }
