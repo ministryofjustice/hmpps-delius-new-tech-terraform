@@ -101,6 +101,13 @@ resource "aws_ecs_service" "web_service" {
     security_groups = ["${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"]
   }
   depends_on = ["aws_iam_role.web_task_role"]
+
+  load_balancer {
+    target_group_arn = "${data.terraform_remote_state.delius_core_ndelius.newtech_webfrontend_target_group_arn}"
+    container_name   = "newtechweb"
+    container_port   = "${var.web_conf["service_port"]}"
+  }
+
   service_registries {
     registry_arn   = "${aws_service_discovery_service.web_svc_record.arn}"
     container_name = "newtechweb"

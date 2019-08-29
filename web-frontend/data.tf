@@ -9,7 +9,7 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-# Load in VPC security groups to reference db sgs
+# Load in VPC security groups
 data "terraform_remote_state" "vpc_security_groups" {
   backend = "s3"
 
@@ -27,6 +27,17 @@ data "terraform_remote_state" "delius_core_security_groups" {
   config {
     bucket = "${var.remote_state_bucket_name}"
     key    = "delius-core/security-groups/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
+# Load in Delius Core weblogic for web service target group
+data "terraform_remote_state" "delius_core_ndelius" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "delius-core/application/ndelius/terraform.tfstate"
     region = "${var.region}"
   }
 }
@@ -137,7 +148,7 @@ data "template_file" "web_task_def_template" {
     env_offender_api_provider            = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}"
     env_params_user_token_valid_duration = "${var.web_conf["env_params_user_token_valid_duration"]}"
     env_pdf_generator_url                = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}"
-    env_store_alfresco_url               = "${var.web_conf["env_store_alfresco_url"]}"
+    env_store_alfresco_url               = "http://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/service"
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
   }
 }

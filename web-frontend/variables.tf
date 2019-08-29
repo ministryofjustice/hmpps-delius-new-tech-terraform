@@ -79,7 +79,6 @@ variable "web_conf" {
     env_custody_api_auth_username        = ""                                         # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
     env_custody_api_auth_password        = ""                                         # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
     env_params_user_token_valid_duration = "1h"                                       # PARAMS_USER_TOKEN_VALID_DURATION
-    env_store_alfresco_url               = "http://alfresco/alfresco/service/"        # STORE_ALFRESCO_URL
     env_store_provider                   = "mongo"                                    # STORE_PROVIDER
   }
 }
