@@ -28,8 +28,8 @@
           "value": "${env_store_provider}"
         },
         {
-          "name": "OFFENDER_API_PROVIDER",
-          "value": "${env_offender_api_provider}"
+          "name": "DELIUS_API_BASE_URL",
+          "value": "${env_offender_api_endpoint}"
         },
         {
           "name": "ELASTIC_SEARCH_HOST",
@@ -44,12 +44,16 @@
           "value": "${env_elastic_search_scheme}"
         },
         {
-          "name": "NOMIS_API_BASE_URL",
-          "value": "${env_nomis_api_base_url}"
+          "name": "ELASTIC_SEARCH_AWS_SIGNREQUESTS",
+          "value": "${env_elastic_search_sign_requests}"
         },
         {
-          "name": "ANALYTICS_MONGO_CONNECTION",
-          "value": "${env_analytics_mongo_connection}"
+          "name": "ELASTIC_SEARCH_AWS_REGION",
+          "value": "${region}"
+        },
+        {
+          "name": "NOMIS_API_BASE_URL",
+          "value": "${env_nomis_api_base_url}"
         },
         {
             "name": "PDF_GENERATOR_URL",
@@ -58,6 +62,14 @@
         {
             "name": "STORE_ALFRESCO_URL",
             "value": "${env_store_alfresco_url}"
+        },
+        {
+            "name": "STORE_ALFRESCO_USER",
+            "value": "${env_store_alfresco_user}"
+        },
+        {
+            "name": "PRISONER_API_PROVIDER",
+            "value": "${env_prisoner_api_provider}"
         }
       ],
     "secrets": [

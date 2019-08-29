@@ -57,8 +57,10 @@ variable "web_conf" {
   type        = "map"
 
   default = {
-    image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
-    image_version = "0.2.20"
+    image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
+
+    #image_version = "0.2.20"
+    image_version = "es_signing"
     service_port  = 9000
     cpu           = "1024"
     memory        = "512"
@@ -71,15 +73,17 @@ variable "web_conf" {
     ecs_target_cpu = "60"
 
     # Web env vars - defaults mirror those set in the app's application.conf file
-    env_analytics_mongo_connection       = "mongodb://mongodb.ecs.cluster"            # ANALYTICS_MONGO_CONNECTION=<the URL of you MongoDb instance>/analytics
-    env_application_secret               = ""                                         # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
-    env_elastic_search_host              = ""                                         # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
-    env_elastic_search_port              = 443                                        # ELASTIC_SEARCH_PORT
-    env_elastic_search_scheme            = "https"                                    # ELASTIC_SEARCH_SCHEME=
-    env_custody_api_auth_username        = ""                                         # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
-    env_custody_api_auth_password        = ""                                         # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
-    env_params_user_token_valid_duration = "1h"                                       # PARAMS_USER_TOKEN_VALID_DURATION
-    env_store_provider                   = "mongo"                                    # STORE_PROVIDER
+    env_application_secret               = ""                              # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
+    env_elastic_search_host              = ""                              # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
+    env_elastic_search_port              = 443                             # ELASTIC_SEARCH_PORT
+    env_elastic_search_scheme            = "https"                         # ELASTIC_SEARCH_SCHEME=
+    env_elastic_search_sign_requests     = "true"                          # ELASTIC_SEARCH_AWS_SIGNREQUESTS
+    env_custody_api_auth_username        = ""                              # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
+    env_custody_api_auth_password        = ""                              # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
+    env_params_user_token_valid_duration = "1h"                            # PARAMS_USER_TOKEN_VALID_DURATION
+    env_store_provider                   = "alfresco"                         # STORE_PROVIDER
+    env_store_alfresco_user              = "N00"                          # STORE_ALFRESCO_USER
+    env_prisoner_api_provider            = "custody"                       # PRISONER_API_PROVIDER
   }
 }
 

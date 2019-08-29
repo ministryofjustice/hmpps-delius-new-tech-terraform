@@ -1,13 +1,4 @@
 # Web SG Egress Rules 
-resource "aws_security_group_rule" "web_mongo_out" {
-  type                     = "egress"
-  from_port                = 27017
-  to_port                  = 27017
-  protocol                 = "tcp"
-  source_security_group_id = "${data.terraform_remote_state.newtech_casenotes.mongo_sg_id}"
-  security_group_id        = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
-}
-
 resource "aws_security_group_rule" "web_pdfgenerator_out" {
   type                     = "egress"
   from_port                = 8080
@@ -54,15 +45,6 @@ resource "aws_security_group_rule" "pdfgenerator_web_in" {
   security_group_id        = "${data.terraform_remote_state.newtech_pdf.pdf_sg_id}"
 }
 
-resource "aws_security_group_rule" "mongo_web_in" {
-  type                     = "ingress"
-  from_port                = 27017
-  to_port                  = 27017
-  protocol                 = "tcp"
-  source_security_group_id = "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"
-  security_group_id        = "${data.terraform_remote_state.newtech_casenotes.mongo_sg_id}"
-}
-
 resource "aws_security_group_rule" "search_in" {
   type                     = "ingress"
   from_port                = 443
@@ -101,13 +83,21 @@ resource "aws_ecs_service" "web_service" {
     security_groups = ["${data.terraform_remote_state.delius_core_security_groups.sg_newtech_web_id}"]
   }
   depends_on = ["aws_iam_role.web_task_role"]
-
   load_balancer {
     target_group_arn = "${data.terraform_remote_state.delius_core_ndelius.newtech_webfrontend_target_group_arn}"
     container_name   = "newtechweb"
     container_port   = "${var.web_conf["service_port"]}"
   }
-
+  load_balancer {
+    target_group_arn = "${data.terraform_remote_state.delius_core_interface.newtech_webfrontend_target_group_arn}"
+    container_name   = "newtechweb"
+    container_port   = "${var.web_conf["service_port"]}"
+  }
+  load_balancer {
+    target_group_arn = "${data.terraform_remote_state.delius_core_spg.newtech_webfrontend_target_group_arn}"
+    container_name   = "newtechweb"
+    container_port   = "${var.web_conf["service_port"]}"
+  }
   service_registries {
     registry_arn   = "${aws_service_discovery_service.web_svc_record.arn}"
     container_name = "newtechweb"

@@ -42,6 +42,26 @@ data "terraform_remote_state" "delius_core_ndelius" {
   }
 }
 
+data "terraform_remote_state" "delius_core_interface" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "delius-core/application/interface/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
+data "terraform_remote_state" "delius_core_spg" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "delius-core/application/spg/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
 # Load in shared ECS cluster state file for target cluster arn
 data "terraform_remote_state" "ecs_cluster" {
   backend = "s3"
@@ -121,7 +141,7 @@ data "template_file" "web_policy_template" {
   template = "${file("${path.module}/templates/iam/web_policy.tpl")}"
 
   vars = {
-    domain_arn       = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
+    domain_arn = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
   }
 }
 
@@ -139,16 +159,18 @@ data "template_file" "web_task_def_template" {
     image_version                        = "${var.web_conf["image_version"]}"
     service_port                         = "${var.web_conf["service_port"]}"
     log_group_name                       = "${aws_cloudwatch_log_group.web_log_group.name}"
-    env_analytics_mongo_connection       = "${var.web_conf["env_analytics_mongo_connection"]}"
     env_application_secret               = "${var.web_conf["env_application_secret"]}"
     env_elastic_search_host              = "${data.terraform_remote_state.newtech_search.newtech_search_config["endpoint"]}"
     env_elastic_search_port              = "${var.web_conf["env_elastic_search_port"]}"
     env_elastic_search_scheme            = "${var.web_conf["env_elastic_search_scheme"]}"
-    env_nomis_api_base_url               = "${lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"])}"
-    env_offender_api_provider            = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}"
+    env_elastic_search_sign_requests     = "${var.web_conf["env_elastic_search_sign_requests"]}"
+    env_nomis_api_base_url               = "${replace(lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"]),"/elite2api", "")}/"
+    env_offender_api_endpoint            = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}/api/"
     env_params_user_token_valid_duration = "${var.web_conf["env_params_user_token_valid_duration"]}"
-    env_pdf_generator_url                = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}"
+    env_pdf_generator_url                = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}/"
     env_store_alfresco_url               = "http://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/service"
+    env_store_alfresco_user              = "${var.web_conf["env_store_alfresco_user"]}"
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
+    env_prisoner_api_provider            = "${var.web_conf["env_prisoner_api_provider"]}"
   }
 }

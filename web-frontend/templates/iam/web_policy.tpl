@@ -6,7 +6,10 @@
         "es:*"
       ],
       "Effect": "Allow",
-      "Resource": "${domain_arn}"
+      "Resource": [
+        "${domain_arn}",
+        "${domain_arn}/*"
+      ]
     }
   ]
 }
