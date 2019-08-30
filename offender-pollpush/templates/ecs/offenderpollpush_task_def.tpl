@@ -56,6 +56,18 @@
           "value": "${env_elastic_search_port}"
         },
         {
+          "name": "ELASTIC_SEARCH_AWS_SIGNREQUESTS",
+          "value": "${env_elastic_search_aws_signrequests}"
+        },
+        {
+          "name": "ELASTIC_SEARCH_AWS_REGION",
+          "value": "${region}"
+        },
+        {
+          "name": "ELASTIC_SEARCH_AWS_SERVICENAME",
+          "value": "${env_elastic_search_aws_servicename}"
+        },
+        {
           "name": "ALL_PULL_PAGE_SIZE",
           "value": "${env_all_pull_page_size}"
         },

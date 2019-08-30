@@ -88,7 +88,7 @@ data "template_file" "offenderpollpush_policy_template" {
   template = "${file("${path.module}/templates/iam/offenderpollpush_policy.tpl")}"
 
   vars = {
-    domain_arn     = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
+    domain_arn = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_arn"]}"
   }
 }
 
@@ -97,25 +97,27 @@ data "template_file" "offenderpollpush_task_def_template" {
   template = "${file("templates/ecs/offenderpollpush_task_def.tpl")}"
 
   vars {
-    region                     = "${var.region}"
-    aws_account_id             = "${data.aws_caller_identity.current.account_id}"
-    environment_name           = "${var.environment_name}"
-    project_name               = "${var.project_name}"
-    container_name             = "offenderpollpush"
-    image_url                  = "${var.offenderpollpush_conf["image"]}"
-    image_version              = "${var.offenderpollpush_conf["image_version"]}"
-    log_group_name             = "${aws_cloudwatch_log_group.offenderpollpush_log_group.name}"
-    env_debug_log              = "${var.offenderpollpush_conf["env_debug_log"]}"
-    env_index_all_offenders    = "${var.offenderpollpush_conf["env_index_all_offenders"]}"
-    env_ingestion_pipeline     = "${var.offenderpollpush_conf["env_ingestion_pipeline"]}"
-    env_delius_api_base_url    = "${data.terraform_remote_state.newtech_offapi.newtech_offenderapi_endpoint}"
-    env_delius_api_username    = "${var.offenderpollpush_conf["env_delius_api_username"]}"
-    env_elastic_search_scheme  = "${var.offenderpollpush_conf["env_elastic_search_scheme"]}"
-    env_elastic_search_host    = "${data.terraform_remote_state.newtech_search.newtech_search_config["endpoint"]}"
-    env_elastic_search_cluster = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_name"]}"
-    env_elastic_search_port    = "${var.offenderpollpush_conf["env_elastic_search_port"]}"
-    env_all_pull_page_size     = "${var.offenderpollpush_conf["env_all_pull_page_size"]}"
-    env_process_page_size      = "${var.offenderpollpush_conf["env_process_page_size"]}"
-    env_poll_seconds           = "${var.offenderpollpush_conf["env_poll_seconds"]}"
+    region                              = "${var.region}"
+    aws_account_id                      = "${data.aws_caller_identity.current.account_id}"
+    environment_name                    = "${var.environment_name}"
+    project_name                        = "${var.project_name}"
+    container_name                      = "offenderpollpush"
+    image_url                           = "${var.offenderpollpush_conf["image"]}"
+    image_version                       = "${var.offenderpollpush_conf["image_version"]}"
+    log_group_name                      = "${aws_cloudwatch_log_group.offenderpollpush_log_group.name}"
+    env_debug_log                       = "${var.offenderpollpush_conf["env_debug_log"]}"
+    env_index_all_offenders             = "${var.offenderpollpush_conf["env_index_all_offenders"]}"
+    env_ingestion_pipeline              = "${var.offenderpollpush_conf["env_ingestion_pipeline"]}"
+    env_delius_api_base_url             = "${data.terraform_remote_state.newtech_offapi.newtech_offenderapi_endpoint}/api"
+    env_delius_api_username             = "${var.offenderpollpush_conf["env_delius_api_username"]}"
+    env_elastic_search_scheme           = "${var.offenderpollpush_conf["env_elastic_search_scheme"]}"
+    env_elastic_search_host             = "${data.terraform_remote_state.newtech_search.newtech_search_config["endpoint"]}"
+    env_elastic_search_cluster          = "${data.terraform_remote_state.newtech_search.newtech_search_config["domain_name"]}"
+    env_elastic_search_port             = "${var.offenderpollpush_conf["env_elastic_search_port"]}"
+    env_elastic_search_aws_signrequests = "${var.offenderpollpush_conf["env_elastic_search_aws_signrequests"]}"
+    env_elastic_search_aws_servicename  = "${var.offenderpollpush_conf["env_elastic_search_aws_servicename"]}"
+    env_all_pull_page_size              = "${var.offenderpollpush_conf["env_all_pull_page_size"]}"
+    env_process_page_size               = "${var.offenderpollpush_conf["env_process_page_size"]}"
+    env_poll_seconds                    = "${var.offenderpollpush_conf["env_poll_seconds"]}"
   }
 }
