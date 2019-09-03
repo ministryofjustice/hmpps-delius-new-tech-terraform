@@ -168,7 +168,7 @@ data "template_file" "web_task_def_template" {
     env_offender_api_endpoint            = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}/api/"
     env_params_user_token_valid_duration = "${var.web_conf["env_params_user_token_valid_duration"]}"
     env_pdf_generator_url                = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}/"
-    env_store_alfresco_url               = "http://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/service"
+    env_store_alfresco_url               = "${var.web_conf["env_alfresco_scheme"]}://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/service"
     env_store_alfresco_user              = "${var.web_conf["env_store_alfresco_user"]}"
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
     env_prisoner_api_provider            = "${var.web_conf["env_prisoner_api_provider"]}"
