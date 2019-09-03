@@ -43,7 +43,7 @@ variable "tags" {
 }
 
 variable "pdfgenerator_conf" {
-  description = "Config map for case notes poll/push task"
+  description = "Config map for pdf generator task"
   type        = "map"
 
   default = {

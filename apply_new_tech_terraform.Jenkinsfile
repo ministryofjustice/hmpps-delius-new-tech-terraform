@@ -173,6 +173,22 @@ pipeline {
             }
           }
         }
+
+        stage('New Tech Offender Poll Push') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'offender-pollpush')
+            }
+          }
+        }
+
+        stage('New Tech Web Frontend') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'web-frontend')
+            }
+          }
+        }
     }
 
     post {

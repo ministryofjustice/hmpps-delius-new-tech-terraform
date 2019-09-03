@@ -71,6 +71,8 @@ pipeline {
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'pdf-generator')}}}
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-api')}}}
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'search')}}}
+            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-pollpush')}}}
+            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'web-frontend')}}}
           }
         }
     }
