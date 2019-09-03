@@ -54,7 +54,7 @@ resource "aws_cognito_user_pool" "search_user_pool" {
 }
 
 resource "aws_cognito_user_pool_domain" "search_user_pool_domain" {
-  domain       = "${local.name_prefix}-${var.search_cognito_conf["domain"]}-${var.environment_name}"
+  domain       = "${local.name_prefix}-${var.search_cognito_conf["domain"]}"
   user_pool_id = "${aws_cognito_user_pool.search_user_pool.id}"
   count        = 1
 }
