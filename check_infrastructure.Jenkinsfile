@@ -48,9 +48,11 @@ def plan_submodule(config_dir, env_name, git_project_dir, submodule_name) {
 pipeline {
 
     agent { label "jenkins_slave" }
+
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
     }
+
     stages {
 
         stage('setup') {
@@ -70,11 +72,11 @@ pipeline {
         stage('New Tech') {
           parallel {
             stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'case-notes')}}}
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'pdf-generator')}}}
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-api')}}}
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'search')}}}
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-pollpush')}}}
-            stage('Plan New Tech Case Notes'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'web-frontend')}}}
+            stage('Plan New Tech PDF Generator'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'pdf-generator')}}}
+            stage('Plan New Tech Offender API'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-api')}}}
+            stage('Plan New Tech Search'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'search')}}}
+            stage('Plan New Tech Offender Poll Push'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-pollpush')}}}
+            stage('Plan New Tech Web Frontend'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'web-frontend')}}}
           }
         }
     }
