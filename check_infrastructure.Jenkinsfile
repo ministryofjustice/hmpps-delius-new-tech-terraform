@@ -7,6 +7,9 @@ project.newtech     = 'hmpps-delius-new-tech-terraform'
 //     choice:
 //       name: 'environment_name'
 //       description: 'Environment name.'
+//     string:
+//       name: 'CONFIG_BRANCH'
+//       description: 'Target Branch for hmpps-env-configs'
 
 def prepare_env() {
     sh '''
