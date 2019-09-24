@@ -23,7 +23,7 @@ resource "aws_security_group_rule" "search_ingress_bastion" {
 }
 
 resource "aws_elasticsearch_domain" "search_domain" {
-  domain_name           = "${var.search_conf["es_domain"]}"
+  domain_name = "${var.environment_name == "delius-core-sandpit"  ? local.sandpit_domain : var.search_conf["es_domain"]}"
   elasticsearch_version = "${var.search_conf["es_version"]}"
 
   vpc_options {

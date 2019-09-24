@@ -110,7 +110,7 @@ variable "search_cognito_conf" {
     admin_only_create = true
 
     # Pool domain for Cognito managed login page
-    domain = "newtech-search"
+    # domain = "newtech-search"
 
     # Optional email attribute and associated settings
     email_required           = false
