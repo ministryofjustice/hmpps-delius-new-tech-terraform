@@ -9,14 +9,12 @@ resource "aws_iam_role" "search_kibana_role" {
   assume_role_policy = "${data.template_file.search_kibana_assume_policy_template.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "search_kibana_cognito_access" {
-  name       = "${local.name_prefix}-kibanauser-pri-iam"
-  roles      = ["${aws_iam_role.search_kibana_role.name}"]
+resource "aws_iam_role_policy_attachment" "search_kibana_cognito_access" {
+  role     = "${aws_iam_role.search_kibana_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonESCognitoAccess"
 }
 
-resource "aws_iam_policy_attachment" "search_kibana_es_access" {
-  name       = "${local.name_prefix}-kibanauser-pri-iam"
-  roles      = ["${aws_iam_role.search_kibana_role.name}"]
+resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
+  role      = "${aws_iam_role.search_kibana_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonESFullAccess"
 }
