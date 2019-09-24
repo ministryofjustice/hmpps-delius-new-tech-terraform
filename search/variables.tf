@@ -109,9 +109,6 @@ variable "search_cognito_conf" {
     # Admin only to create users. If false, users can sign up themselves
     admin_only_create = true
 
-    # Pool domain for Cognito managed login page
-    domain = "newtech-search"
-
     # Optional email attribute and associated settings
     email_required           = false
     auto_verified_attributes = "email"

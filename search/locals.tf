@@ -21,6 +21,9 @@ locals {
   es_subnets = [
     "${null_resource.subnet_list.*.triggers.subnet}",
   ]
+
+  # Handle sandpit/dev shared env
+  sandpit_domain = "sandpit-${var.search_conf["es_domain"]}"
 }
 
 # Build list of subnets from private subnet ids equal to number of ES subnets required

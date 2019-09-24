@@ -48,13 +48,13 @@ resource "aws_cognito_user_pool" "search_user_pool" {
     merge(
         var.tags, 
         map("Name", "${local.name_prefix}-searchuser-pri-cog"),
-        map("Domain", "${var.search_cognito_conf["domain"]}")
+        map("Domain", "${var.environment_type}-${var.search_conf["es_domain"]}")
         )
     }"
 }
 
 resource "aws_cognito_user_pool_domain" "search_user_pool_domain" {
-  domain       = "${local.name_prefix}-${var.environment_type}-${var.search_cognito_conf["domain"]}"
+  domain = "${var.environment_type}-${var.search_conf["es_domain"]}"
   user_pool_id = "${aws_cognito_user_pool.search_user_pool.id}"
   count        = 1
 }
