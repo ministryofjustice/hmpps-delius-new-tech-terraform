@@ -172,5 +172,6 @@ data "template_file" "web_task_def_template" {
     env_store_alfresco_user              = "${var.web_conf["env_store_alfresco_user"]}"
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
     env_prisoner_api_provider            = "${var.web_conf["env_prisoner_api_provider"]}"
+    env_base_path                        = "${var.web_conf["env_base_path"]}"
   }
 }
