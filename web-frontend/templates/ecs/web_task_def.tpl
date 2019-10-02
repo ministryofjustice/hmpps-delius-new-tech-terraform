@@ -70,6 +70,10 @@
         {
             "name": "PRISONER_API_PROVIDER",
             "value": "${env_prisoner_api_provider}"
+        },
+        {
+          "name": "BASE_PATH",
+          "value": "${env_base_path}"
         }
       ],
     "secrets": [
