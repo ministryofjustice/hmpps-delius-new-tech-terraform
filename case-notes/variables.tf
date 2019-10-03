@@ -58,12 +58,12 @@ variable "casenotes_conf" {
 
     # NOMIS Endpoint
     env_pull_base_url   = "http://localhost:8080/nomisapi/offenders/events/case_notes"
-    env_pull_note_types = ""
+    env_pull_note_types = "ALERT+ACTIVE,ALERT+INACTIVE,PRISON+RELEASE,TRANSFER+FROMTOL,GEN+OSE,KA"
 
     # NDelius Endpoint
     env_push_base_url = "http://localhost:8080/delius"
     env_poll_seconds  = "60"
-    env_slack_seconds = "0"
+    env_slack_seconds = "30"
   }
 }
 
