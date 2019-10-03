@@ -63,7 +63,10 @@ resource "aws_ecs_service" "casenotes_service" {
 
   network_configuration = {
     subnets         = ["${local.private_subnet_ids}"]
-    security_groups = ["${aws_security_group.casenotes_sg.id}"]
+    security_groups = [
+      "${aws_security_group.casenotes_sg.id}",
+      "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_casenotes_out_id}"
+      ]
   }
   # Not horizontally scalable - single instance
   desired_count = 1
