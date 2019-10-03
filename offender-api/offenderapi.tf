@@ -8,12 +8,12 @@ resource "aws_security_group" "offenderapi_sg" {
 }
 
 resource "aws_security_group_rule" "offenderapi_http_in" {
-  type              = "ingress"
-  from_port         = "${var.offenderapi_conf["env_service_port"]}"
-  to_port           = "${var.offenderapi_conf["env_service_port"]}"
-  protocol          = "tcp"
+  type                     = "ingress"
+  from_port                = "${var.offenderapi_conf["env_service_port"]}"
+  to_port                  = "${var.offenderapi_conf["env_service_port"]}"
+  protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.offenderapi_lb_sg.id}"
-  security_group_id = "${aws_security_group.offenderapi_sg.id}"
+  security_group_id        = "${aws_security_group.offenderapi_sg.id}"
 }
 
 resource "aws_security_group_rule" "offenderapi_https_out" {

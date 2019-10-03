@@ -58,8 +58,10 @@ resource "aws_lb_listener" "offenderapi_lb_https_listener" {
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
   certificate_arn   = "${local.public_certificate_arn}"
+
   default_action {
     type = "fixed-response"
+
     fixed_response {
       status_code  = "404"
       content_type = "text/plain"
@@ -69,10 +71,12 @@ resource "aws_lb_listener" "offenderapi_lb_https_listener" {
 
 resource "aws_lb_listener_rule" "internal_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
+
   condition {
     field  = "path-pattern"
     values = ["/*"]
   }
+
   action {
     type             = "forward"
     target_group_arn = "${aws_lb_target_group.offenderapi_target_group.arn}"
