@@ -83,3 +83,13 @@ variable "log_retention" {
   description = "Cloudwatch logs data retention in days"
   default     = "14"
 }
+
+variable "ansible_vars" {
+  default = {}
+  type    = "map"
+}
+
+variable "default_ansible_vars" {
+  default = {}
+  type    = "map"
+}
