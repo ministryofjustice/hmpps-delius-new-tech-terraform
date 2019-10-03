@@ -69,7 +69,7 @@ data "template_file" "casenotes_task_def_template" {
     env_mongo_db_name   = "${var.casenotes_conf["env_mongo_db_name"]}"
     env_pull_base_url   = "${replace(lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"]),"/elite2api", "/nomisapi/offenders/events/case_notes_for_delius")}"
     env_pull_note_types = "${var.casenotes_conf["env_pull_note_types"]}"
-    env_push_base_url   =  "https://interface-app-internal.${local.external_domain}"
+    env_push_base_url   =  "https://interface.${local.external_domain}"
     env_poll_seconds    = "${var.casenotes_conf["env_poll_seconds"]}"
     env_slack_seconds   = "${var.casenotes_conf["env_slack_seconds"]}"
   }
