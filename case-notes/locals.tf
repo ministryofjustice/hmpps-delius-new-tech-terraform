@@ -14,4 +14,6 @@ locals {
     "${data.terraform_remote_state.vpc.vpc_db-subnet-az2}",
     "${data.terraform_remote_state.vpc.vpc_db-subnet-az3}",
   ]
+
+  external_domain = "${data.terraform_remote_state.vpc.public_zone_name}"
 }
