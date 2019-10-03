@@ -100,3 +100,9 @@ data "template_file" "offenderapi_task_def_template" {
     env_debug                      = "${var.offenderapi_conf["env_debug"]}"
   }
 }
+
+data "aws_acm_certificate" "cert" {
+  domain      = "${data.terraform_remote_state.vpc.public_ssl_domain}"
+  types       = ["AMAZON_ISSUED"]
+  most_recent = true
+}

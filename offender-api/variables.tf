@@ -72,3 +72,9 @@ variable "cloudwatch_log_retention" {
   description = "Cloudwatch logs data retention in days"
   default     = "14"
 }
+
+variable "offender_api_allowed_cidrs" {
+  description = "Allowed ingress CIDRs for offender api (aka community api)"
+  type        = "list"
+  default     = []
+}

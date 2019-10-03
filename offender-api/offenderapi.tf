@@ -4,6 +4,16 @@ resource "aws_security_group" "offenderapi_sg" {
   name        = "${local.name_prefix}-offapi-pri-sg"
   description = "New Tech Offender API Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-offapi-pri-sg"))}"
+}
+
+resource "aws_security_group_rule" "offenderapi_http_in" {
+  type              = "ingress"
+  from_port         = "${var.offenderapi_conf["env_service_port"]}"
+  to_port           = "${var.offenderapi_conf["env_service_port"]}"
+  protocol          = "tcp"
+  source_security_group_id = "${aws_security_group.offenderapi_lb_sg.id}"
+  security_group_id = "${aws_security_group.offenderapi_sg.id}"
 }
 
 resource "aws_security_group_rule" "offenderapi_https_out" {
@@ -65,6 +75,11 @@ resource "aws_ecs_service" "offenderapi_service" {
   service_registries {
     registry_arn   = "${aws_service_discovery_service.offenderapi_svc_record.arn}"
     container_name = "offenderapi"
+  }
+  load_balancer {
+    target_group_arn = "${aws_lb_target_group.offenderapi_target_group.arn}"
+    container_name   = "offenderapi"
+    container_port   = "${var.offenderapi_conf["env_service_port"]}"
   }
   lifecycle {
     ignore_changes = ["desired_count"]
