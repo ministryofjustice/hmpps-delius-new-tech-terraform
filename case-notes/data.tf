@@ -31,6 +31,17 @@ data "terraform_remote_state" "ecs_cluster" {
   }
 }
 
+# Load in Delius Core security Groups for db and ldap access
+data "terraform_remote_state" "delius_core_security_groups" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "delius-core/security-groups/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
 # Get current context for things like account id
 data "aws_caller_identity" "current" {}
 
@@ -69,7 +80,7 @@ data "template_file" "casenotes_task_def_template" {
     env_mongo_db_name   = "${var.casenotes_conf["env_mongo_db_name"]}"
     env_pull_base_url   = "${replace(lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"]),"/elite2api", "/nomisapi/offenders/events/case_notes_for_delius")}"
     env_pull_note_types = "${var.casenotes_conf["env_pull_note_types"]}"
-    env_push_base_url   =  "https://interface.${local.external_domain}"
+    env_push_base_url   =  "https://interface.${local.external_domain}/api"
     env_poll_seconds    = "${var.casenotes_conf["env_poll_seconds"]}"
     env_slack_seconds   = "${var.casenotes_conf["env_slack_seconds"]}"
   }
