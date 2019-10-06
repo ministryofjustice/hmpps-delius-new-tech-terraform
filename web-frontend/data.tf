@@ -62,6 +62,16 @@ data "terraform_remote_state" "delius_core_spg" {
   }
 }
 
+data "terraform_remote_state" "delius_core_ldap" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.remote_state_bucket_name}"
+    key    = "delius-core/application/ldap/terraform.tfstate"
+    region = "${var.region}"
+  }
+}
+
 # Load in shared ECS cluster state file for target cluster arn
 data "terraform_remote_state" "ecs_cluster" {
   backend = "s3"
@@ -173,5 +183,6 @@ data "template_file" "web_task_def_template" {
     env_store_provider                   = "${var.web_conf["env_store_provider"]}"
     env_prisoner_api_provider            = "${var.web_conf["env_prisoner_api_provider"]}"
     env_base_path                        = "${var.web_conf["env_base_path"]}"
+    env_ldap_string_format               = "cn=%s,${data.terraform_remote_state.delius_core_ldap.ldap_base_users}"
   }
 }
