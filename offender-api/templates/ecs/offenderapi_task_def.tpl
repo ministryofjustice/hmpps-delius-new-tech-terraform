@@ -36,6 +36,10 @@
             "value": "ldap://${env_ldap_endpoint}:${env_ldap_port}"
         },
         {
+            "name": "DELIUS_LDAP_USERS_BASE",
+            "value": "${env_delius_ldap_users_base}"
+        },
+        {
             "name": "SPRING_LDAP_USERNAME",
             "value": "${env_spring_ldap_username}"
         },

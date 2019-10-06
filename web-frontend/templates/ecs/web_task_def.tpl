@@ -74,6 +74,10 @@
         {
           "name": "BASE_PATH",
           "value": "${env_base_path}"
+        },
+        {
+          "name": "LDAP_STRING_FORMAT",
+          "value": "${env_ldap_string_format}"
         }
       ],
     "secrets": [
