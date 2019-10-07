@@ -42,6 +42,10 @@
         {
             "name": "DEBUG",
             "value": "${env_debug}"
+        },
+        {
+            "name": "ALFRESCO_BASEURL",
+            "value": "${env_alfresco_baseurl}"
         }
       ],
     "secrets": [
@@ -52,6 +56,10 @@
         {
             "name": "SPRING_LDAP_PASSWORD",
             "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/apacheds/apacheds/ldap_admin_password"
+        },
+        {
+            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offenderapi/appinsights_key"
         }
     ],
     "volumesFrom": [],
