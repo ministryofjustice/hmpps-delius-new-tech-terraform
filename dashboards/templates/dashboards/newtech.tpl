@@ -16,7 +16,7 @@
                     [ ".", "ServiceCount", ".", "." ],
                     [ ".", "ContainerInstanceCount", ".", "." ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "New Tech ECS Summary"
             }
         },
@@ -37,7 +37,7 @@
                     [ "AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "${name_prefix}-ecscluster-private-asg", { "label": "ECS Nodes" } ]
                 ],
                 "view": "singleValue",
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "New Tech Running Task Count",
                 "period": 300
             }
@@ -55,7 +55,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "casenotes"
             }
@@ -73,7 +73,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "pdfgen"
             }
@@ -91,7 +91,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "cnotesdb"
             }
@@ -109,7 +109,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "web"
             }
@@ -127,7 +127,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "offapi"
             }
@@ -145,7 +145,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": true,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "period": 300,
                 "title": "offpoll"
             }
@@ -162,7 +162,7 @@
                     [ ".", "GroupTotalInstances", ".", ".", { "color": "#2ca02c" } ]
                 ],
                 "view": "timeSeries",
-                "region": "eu-west-2",
+                "region": "${region}",
                 "stacked": true,
                 "title": "ECS Nodes",
                 "period": 300
@@ -185,7 +185,7 @@
                 ],
                 "view": "timeSeries",
                 "stacked": false,
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "CPU Util"
             }
         },
@@ -206,7 +206,7 @@
                     [ "...", "${name_prefix}-newtechweb-pri-ecs", ".", "." ],
                     [ "...", "${name_prefix}-casenotes-pri-ecs", ".", "." ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "Mem Util"
             }
         },
@@ -222,7 +222,7 @@
                 "metrics": [
                     [ "ECS/ContainerInsights", "CpuUtilized", "ClusterName", "${name_prefix}-ecscluster-private-ecs" ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "ECS CPU"
             }
         },
@@ -238,7 +238,7 @@
                 "metrics": [
                     [ "ECS/ContainerInsights", "MemoryUtilized", "ClusterName", "${name_prefix}-ecscluster-private-ecs" ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "ECS Mem"
             }
         },
@@ -259,7 +259,7 @@
                     [ "...", "${name_prefix}-offpoll-pri-cwl" ],
                     [ "...", "${name_prefix}-pdfgen-pri-cwl" ]
                 ],
-                "region": "eu-west-2"
+                "region": "${region}"
             }
         },
         {
@@ -279,7 +279,7 @@
                     [ "...", "${name_prefix}-newtechweb-pri-ecs", ".", "." ],
                     [ "...", "${name_prefix}-casenotes-pri-ecs", ".", "." ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "Storage Read Bytes"
             }
         },
@@ -300,7 +300,7 @@
                     [ "...", "${name_prefix}-offpoll-pri-ecs", ".", "." ],
                     [ "...", "${name_prefix}-offapi-pri-ecs", ".", "." ]
                 ],
-                "region": "eu-west-2",
+                "region": "${region}",
                 "title": "Storage Wrote Bytes"
             }
         }
