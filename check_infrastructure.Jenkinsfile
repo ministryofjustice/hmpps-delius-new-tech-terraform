@@ -80,6 +80,7 @@ pipeline {
             stage('Plan New Tech Search'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'search')}}}
             stage('Plan New Tech Offender Poll Push'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'offender-pollpush')}}}
             stage('Plan New Tech Web Frontend'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'web-frontend')}}}
+            stage('Plan New Tech Dashboards'){ steps { script {plan_submodule(project.config, environment_name, project.newtech, 'dashboards')}}}
           }
         }
     }

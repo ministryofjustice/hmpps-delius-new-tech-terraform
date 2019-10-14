@@ -189,6 +189,14 @@ pipeline {
             }
           }
         }
+
+        stage('New Tech Dashboards') {
+          steps {
+            script {
+              do_terraform(project.config, environment_name, project.newtech, 'dashboards')
+            }
+          }
+        }
     }
 
     post {
