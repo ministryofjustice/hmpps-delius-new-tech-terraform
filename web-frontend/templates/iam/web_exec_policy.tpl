@@ -28,6 +28,7 @@
           "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/application_secret",
           "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_username",
           "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_password",
+          "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/monitoring/analytics/google_id",
           "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm"
       ]
     }

@@ -92,6 +92,10 @@
         {
             "name": "CUSTODY_API_PASSWORD",
             "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/web/custody_api_password"
+        },
+        {
+            "name": "GOOGLE_ANALYTICS_ID",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/monitoring/analytics/google_id"
         }
     ],
     "volumesFrom": [],
