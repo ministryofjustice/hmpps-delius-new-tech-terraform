@@ -2,6 +2,7 @@ resource "aws_security_group" "mongodb_sg" {
   name        = "${local.name_prefix}-cnotesdb-pri-sg"
   description = "New Tech Casenotes Mongo DB Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-cnotesdb-pri-sg"))}"
 }
 
 resource "aws_security_group_rule" "mongodb_https_out" {

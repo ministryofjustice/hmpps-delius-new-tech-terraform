@@ -96,7 +96,6 @@ data "template_file" "offenderapi_task_def_template" {
     env_spring_profiles_active     = "${var.offenderapi_conf["env_spring_profiles_active"]}"
     env_spring_datasource_username = "${var.offenderapi_conf["env_spring_datasource_username"]}"
     env_spring_ldap_username       = "${data.terraform_remote_state.delius_ldap.ldap_bind_user}"
-    env_delius_ldap_users_base     = "${data.terraform_remote_state.delius_ldap.ldap_base_users}"
     env_oracledb_servicename       = "${var.offenderapi_conf["env_oracledb_servicename"]}"
     env_debug                      = "${var.offenderapi_conf["env_debug"]}"
     env_alfresco_baseurl           = "https://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/s/noms-spg"
