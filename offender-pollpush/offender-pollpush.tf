@@ -4,6 +4,7 @@ resource "aws_security_group" "offenderpoll_sg" {
   name        = "${local.name_prefix}-offpoll-pri-sg"
   description = "New Tech Offender PollPush Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-offenderpoll-pri-sg"))}"
 }
 
 resource "aws_security_group_rule" "offenderpoll_https_out" {

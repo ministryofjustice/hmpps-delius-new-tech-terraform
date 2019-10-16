@@ -3,6 +3,7 @@ resource "aws_security_group" "casenotes_sg" {
   name        = "${local.name_prefix}-casenotes-pri-sg"
   description = "New Tech Casenotes Security Group"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-casenotes-pri-sg"))}"
 }
 
 resource "aws_security_group_rule" "casenotes_https_out" {
