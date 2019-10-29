@@ -10,7 +10,7 @@ resource "aws_security_group_rule" "offenderapilb_https_in" {
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = ["${var.offender_api_allowed_cidrs}"]
+  cidr_blocks       = ["${var.offender_api_allowed_cidrs_unsecured},${var.offender_api_allowed_cidrs_secured},${var.offender_api_allowed_cidrs_healthkick}"]
   security_group_id = "${aws_security_group.offenderapi_lb_sg.id}"
 }
 
@@ -109,11 +109,6 @@ resource "aws_lb_listener_rule" "secure_lb_newtechweb_rule" {
 
 resource "aws_lb_listener_rule" "healthkick_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
-
-  condition {
-    field  = "source-ip"
-    values = ["${var.offender_api_allowed_cidrs_healthkick}"]
-  }
 
   condition {
     field  = "path-pattern"

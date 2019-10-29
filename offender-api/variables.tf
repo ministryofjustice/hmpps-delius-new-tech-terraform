@@ -73,12 +73,6 @@ variable "cloudwatch_log_retention" {
   default     = "14"
 }
 
-variable "offender_api_allowed_cidrs" {
-  description = "Allowed ingress CIDRs for offender api (aka community api)"
-  type        = "list"
-  default     = []
-}
-
 variable "offender_api_allowed_cidrs_unsecured" {
   description = "Allowed ingress CIDRs for unsecured offender api (aka community api)"
   type        = "list"
