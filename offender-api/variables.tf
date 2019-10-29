@@ -78,3 +78,9 @@ variable "offender_api_allowed_cidrs" {
   type        = "list"
   default     = []
 }
+
+variable "offender_api_secure_allowed_cidrs" {
+  description = "Allowed ingress CIDRs for secure version of offender api (aka community api)"
+  type        = "list"
+  default     = []
+}
