@@ -73,8 +73,51 @@ resource "aws_lb_listener_rule" "internal_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
 
   condition {
+    field  = "source-ip"
+    values = ["${var.offender_api_allowed_cidrs_unsecured}"]
+  }
+
+  condition {
     field  = "path-pattern"
-    values = ["/*"]
+    values = ["/api*"]
+  }
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.offenderapi_target_group.arn}"
+  }
+}
+
+resource "aws_lb_listener_rule" "secure_lb_newtechweb_rule" {
+  listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
+
+  condition {
+    field  = "source-ip"
+    values = ["${var.offender_api_allowed_cidrs_secured}"]
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/secure*"]
+  }
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.offenderapi_target_group.arn}"
+  }
+}
+
+resource "aws_lb_listener_rule" "healthkick_lb_newtechweb_rule" {
+  listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
+
+  condition {
+    field  = "source-ip"
+    values = ["${var.offender_api_allowed_cidrs_healthkick}"]
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/ping", "/health", "/info"]
   }
 
   action {

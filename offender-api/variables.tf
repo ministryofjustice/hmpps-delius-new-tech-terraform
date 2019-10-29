@@ -79,8 +79,20 @@ variable "offender_api_allowed_cidrs" {
   default     = []
 }
 
-variable "offender_api_secure_allowed_cidrs" {
-  description = "Allowed ingress CIDRs for secure version of offender api (aka community api)"
+variable "offender_api_allowed_cidrs_unsecured" {
+  description = "Allowed ingress CIDRs for unsecured offender api (aka community api)"
+  type        = "list"
+  default     = []
+}
+
+variable "offender_api_allowed_cidrs_secured" {
+  description = "Allowed ingress CIDRs for secured offender api (aka community api)"
+  type        = "list"
+  default     = []
+}
+
+variable "offender_api_allowed_cidrs_healthkick" {
+  description = "Allowed ingress CIDRs for health endpoints in offender api (aka community api)"
   type        = "list"
   default     = []
 }
