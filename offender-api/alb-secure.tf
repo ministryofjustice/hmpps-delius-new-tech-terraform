@@ -24,7 +24,7 @@ resource "aws_security_group_rule" "offenderapi_securelb_http_out" {
 }
 
 resource "aws_lb_target_group" "offenderapi_secure_target_group" {
-  name     = "${var.short_environment_name}-newtech-api"
+  name     = "${var.short_environment_name}-nt-api-secure"
   vpc_id   = "${data.terraform_remote_state.vpc.vpc_id}"
   protocol = "HTTP"
   port     = "${var.offenderapi_conf["env_service_port"]}"
