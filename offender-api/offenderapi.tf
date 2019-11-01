@@ -90,6 +90,11 @@ resource "aws_ecs_service" "offenderapi_service" {
     container_name   = "offenderapi"
     container_port   = "${var.offenderapi_conf["env_service_port"]}"
   }
+  load_balancer {
+    target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
+    container_name   = "offenderapi"
+    container_port   = "${var.offenderapi_conf["env_service_port"]}"
+  }
   lifecycle {
     ignore_changes = ["desired_count"]
   }
