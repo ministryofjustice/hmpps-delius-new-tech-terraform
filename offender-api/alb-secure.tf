@@ -83,13 +83,40 @@ resource "aws_lb_listener_rule" "secure_lb_newtechweb_rule" {
   }
 }
 
+resource "aws_lb_listener_rule" "ping_lb_newtechweb_rule" {
+  listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
+
+  condition {
+    field  = "path-pattern"
+    values = ["/ping"]
+  }
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
+  }
+}
+
 resource "aws_lb_listener_rule" "health_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
 
   condition {
     field  = "path-pattern"
-    values = ["/ping"]#, "/health", "/info"] #Error: aws_lb_listener_rule.health_lb_newtechweb_rule: condition.0.values: attribute supports 1 item maximum, config has 3 declared
-    #  https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html -- (Required) The path patterns to match. A maximum of 1 can be defined.
+    values = ["/health"]
+  }
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
+  }
+}
+
+resource "aws_lb_listener_rule" "info_lb_newtechweb_rule" {
+  listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
+
+  condition {
+    field  = "path-pattern"
+    values = ["/info"]
   }
 
   action {
