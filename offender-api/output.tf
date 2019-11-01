@@ -5,3 +5,11 @@ output "newtech_offenderapi_endpoint" {
 output "offenderapi_sg_id" {
   value = "${aws_security_group.offenderapi_sg.id}"
 }
+
+output "offenderapi_secure_fqdn" {
+  value = "${aws_route53_record.offenderapi_secure_alb_r53.fqdn}"
+}
+
+output "offenderapi_fqdn" {
+  value = "${aws_route53_record.offenderapi_alb_r53.fqdn}"
+}
