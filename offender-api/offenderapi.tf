@@ -18,11 +18,11 @@ resource "aws_security_group_rule" "offenderapi_http_in" {
 
 resource "aws_security_group_rule" "offenderapi_secure_http_in" {
   type                     = "ingress"
-  from_port                = var.offenderapi_conf["env_service_port"]
-  to_port                  = var.offenderapi_conf["env_service_port"]
+  from_port                = "${var.offenderapi_conf["env_service_port"]}"
+  to_port                  = "${var.offenderapi_conf["env_service_port"]}"
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.offenderapi_secure_lb_sg.id
-  security_group_id        = aws_security_group.offenderapi_sg.id
+  source_security_group_id = "${aws_security_group.offenderapi_secure_lb_sg.id}"
+  security_group_id        = "${aws_security_group.offenderapi_sg.id}"
 }
 
 resource "aws_security_group_rule" "offenderapi_https_out" {
