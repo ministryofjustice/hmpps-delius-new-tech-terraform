@@ -88,7 +88,8 @@ resource "aws_lb_listener_rule" "health_lb_newtechweb_rule" {
 
   condition {
     field  = "path-pattern"
-    values = ["/ping", "/health", "/info"]
+    values = ["/ping"]#, "/health", "/info"] #Error: aws_lb_listener_rule.health_lb_newtechweb_rule: condition.0.values: attribute supports 1 item maximum, config has 3 declared
+    #  https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html -- (Required) The path patterns to match. A maximum of 1 can be defined.
   }
 
   action {
