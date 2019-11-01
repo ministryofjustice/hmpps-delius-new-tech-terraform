@@ -1,8 +1,8 @@
 resource "aws_security_group" "offenderapi_secure_lb_sg" {
   name        = "${local.name_prefix}-offapilb-pub-sg"
   description = "New Tech Offender API LB Security Group"
-  vpc_id      = data.terraform_remote_state.vpc.vpc_id
-  tags        = merge(var.tags, map("Name", "${local.name_prefix}-offapilb-pub-sg"))
+  vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-offapi-sec-lb-pub-sg"))}"
 }
 
 resource "aws_security_group_rule" "offenderapi_securelb_https_in" {
@@ -10,17 +10,17 @@ resource "aws_security_group_rule" "offenderapi_securelb_https_in" {
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = [var.offender_api_allowed_secure_cidrs]
-  security_group_id = aws_security_group.offenderapi_secure_lb_sg.id
+  cidr_blocks       = ["${var.offender_api_allowed_secure_cidrs}"]
+  security_group_id = "${aws_security_group.offenderapi_secure_lb_sg.id}"
 }
 
 resource "aws_security_group_rule" "offenderapi_securelb_http_out" {
   type                     = "egress"
-  from_port                = var.offenderapi_conf["env_service_port"]
-  to_port                  = var.offenderapi_conf["env_service_port"]
+  from_port                = "${var.offenderapi_conf["env_service_port"]}"
+  to_port                  = "${var.offenderapi_conf["env_service_port"]}"
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.offenderapi_sg.id
-  security_group_id        = aws_security_group.offenderapi_secure_lb_sg.id
+  source_security_group_id = "${aws_security_group.offenderapi_sg.id}"
+  security_group_id        = "${aws_security_group.offenderapi_secure_lb_sg.id}"
 }
 
 resource "aws_lb_target_group" "offenderapi_secure_target_group" {
