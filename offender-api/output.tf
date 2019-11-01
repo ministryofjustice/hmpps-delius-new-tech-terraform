@@ -13,3 +13,7 @@ output "offenderapi_secure_fqdn" {
 output "offenderapi_fqdn" {
   value = "${aws_route53_record.offenderapi_alb_r53.fqdn}"
 }
+
+output "short_environment_name" {
+  value = "${var.short_environment_name}"
+}
