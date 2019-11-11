@@ -54,6 +54,7 @@ pipeline {
 
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
+        string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'master')
     }
 
     stages {
@@ -66,7 +67,7 @@ pipeline {
                   git url: 'git@github.com:ministryofjustice/' + project.config, branch: env.CONFIG_BRANCH, credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
                 }
                 dir( project.newtech ) {
-                  checkout scm
+                  git url: 'git@github.com:ministryofjustice/' + project.newtech, branch: env.NEWTECH_BRANCH, credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
                 }
                 prepare_env()
             }
