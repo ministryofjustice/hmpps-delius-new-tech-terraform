@@ -135,6 +135,7 @@ pipeline {
         booleanParam(name: 'deploy_NTElasticSearch', defaultValue: true, description: 'New Tech ElasticSearch?')
         booleanParam(name: 'deploy_NTOffenderPollPush', defaultValue: true, description: 'New Tech Offender Poll Push?')
         booleanParam(name: 'deploy_NTWebFrontend', defaultValue: true, description: 'New Tech Web Frontend?')
+        booleanParam(name: 'deploy_NTDashboards', defaultValue: true, description: 'New Tech Dashboards?')
     }
 
     stages {
@@ -208,8 +209,9 @@ pipeline {
         }
 
         stage('New Tech Dashboards') {
+          when { expression { return params.deploy_NTDashboards } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'dashboards')
             }
           }
