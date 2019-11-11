@@ -70,7 +70,7 @@ def apply_submodule(config_dir, env_name, git_project_dir, submodule_name) {
         set -e
         """
     }
-} 
+}
 
 def confirm() {
     try {
@@ -126,6 +126,18 @@ pipeline {
 
     agent { label "jenkins_slave" }
 
+    parameters {
+        string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
+        string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'master')
+        booleanParam(name: 'deploy_NTCaseNotes', defaultValue: true, description: 'Deploy New Tech Case Notes?')
+        booleanParam(name: 'deploy_NTPDFGenerator', defaultValue: true, description: 'New Tech PDF Generator?')
+        booleanParam(name: 'deploy_NTOffenderAPI', defaultValue: true, description: 'New Tech Offender API?')
+        booleanParam(name: 'deploy_NTElasticSearch', defaultValue: true, description: 'New Tech ElasticSearch?')
+        booleanParam(name: 'deploy_NTOffenderPollPush', defaultValue: true, description: 'New Tech Offender Poll Push?')
+        booleanParam(name: 'deploy_NTWebFrontend', defaultValue: true, description: 'New Tech Web Frontend?')
+        booleanParam(name: 'deploy_NTDashboards', defaultValue: true, description: 'New Tech Dashboards?')
+    }
+
     stages {
 
         stage('setup') {
@@ -133,66 +145,73 @@ pipeline {
                 slackSend(message: "Build started on \"${environment_name}\" - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL.replace(':8080','')}|Open>)")
 
                 dir( project.config ) {
-                  git url: 'git@github.com:ministryofjustice/' + project.config, branch: 'master', credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
+                  git url: 'git@github.com:ministryofjustice/' + project.config, branch: env.CONFIG_BRANCH, credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
                 }
                 dir( project.newtech ) {
-                  checkout scm
+                  git url: 'git@github.com:ministryofjustice/' + project.newtech, branch: env.NEWTECH_BRANCH, credentialsId: 'f44bc5f1-30bd-4ab9-ad61-cc32caf1562a'
                 }
                 prepare_env()
             }
         }
 
         stage('New Tech Case Notes') {
+          when { expression { return params.deploy_NTCaseNotes } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'case-notes')
             }
           }
         }
 
         stage('New Tech PDF Generator') {
+          when { expression { return params.deploy_NTPDFGenerator } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'pdf-generator')
             }
           }
         }
 
         stage('New Tech Offender API') {
+          when { expression { return params.deploy_NTOffenderAPI } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'offender-api')
             }
           }
         }
 
         stage('New Tech ElasticSearch') {
+          when { expression { return params.deploy_NTElasticSearch } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'search')
             }
           }
         }
 
         stage('New Tech Offender Poll Push') {
+          when { expression { return params.deploy_NTOffenderPollPush } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'offender-pollpush')
             }
           }
         }
 
         stage('New Tech Web Frontend') {
+          when { expression { return params.deploy_NTWebFrontend } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'web-frontend')
             }
           }
         }
 
         stage('New Tech Dashboards') {
+          when { expression { return params.deploy_NTDashboards } }
           steps {
-            script {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'dashboards')
             }
           }
