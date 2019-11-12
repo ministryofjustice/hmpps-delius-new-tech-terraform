@@ -52,8 +52,12 @@
             "value": "${env_jwt_public_key}"
         },
         {
-          "name": "DELIUS_LDAP_USERS_BASE",
-          "value": "${env_delius_ldap_users_base}"
+            "name": "DELIUS_LDAP_USERS_BASE",
+            "value": "${env_delius_ldap_users_base}"
+        },
+        {
+            "name": "DELIUS_BASEURL",
+            "value": "${env_push_base_url}"
         }
       ],
     "secrets": [
@@ -68,6 +72,14 @@
         {
             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
             "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offenderapi/appinsights_key"
+        },
+        {
+            "name": "DELIUS_USERNAME",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/apacheds/apacheds/casenotes_user"
+        },
+        {
+            "name": "DELIUS_PASSWORD",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/apacheds/apacheds/casenotes_password"
         }
     ],
     "volumesFrom": [],
