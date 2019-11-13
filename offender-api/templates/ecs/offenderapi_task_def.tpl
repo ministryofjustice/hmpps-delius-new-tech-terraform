@@ -46,6 +46,10 @@
         {
             "name": "ALFRESCO_BASEURL",
             "value": "${env_alfresco_baseurl}"
+        },
+        {
+            "name": "JWT_PUBLIC_KEY",
+            "value": "${env_jwt_public_key}"
         }
       ],
     "secrets": [

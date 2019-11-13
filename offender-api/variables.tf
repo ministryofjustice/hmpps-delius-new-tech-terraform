@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-api"
-    image_version = "0.1.7"
+    image_version = "0.1.20"
     cpu           = "1024"
     memory        = "512"
 
@@ -65,6 +65,7 @@ variable "offenderapi_conf" {
     env_spring_profiles_active     = "oracle"
     env_spring_datasource_username = "delius_pool"
     env_debug                      = "false"
+    env_jwt_public_key             = "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0NCk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBc09QQXRzUUFEZGJSdS9FSDZMUDUNCkJNMS9tRjQwVkRCbjEyaEpTWFBQZDVXWUswSExZMjBWTTdBeHhSOW1uWUNGNlNvMVd0N2ZHTnFVeC9XeWVtQnANCklKTnJzLzdEendnM3V3aVF1Tmg0ektSK0VHeFdiTHdpM3l3N2xYUFV6eFV5QzV4dDg4ZS83dk8rbHoxb0NuaXoNCmpoNG14TkFtczZaWUY3cWZuaEpFOVd2V1B3TExrb2prWnUxSmR1c0xhVm93TjdHVEdOcE1FOGR6ZUprYW0wZ3ANCjRveEhRR2hNTjg3SzZqcVgzY0V3TzZEdmhlbWc4d2hzOTZuelFsOG4yTEZ2QUsydXA5UHJyOUdpMkxGZ1R0N0sNCnFYQTA2a0M0S2d3MklSMWVGZ3pjQmxUT0V3bXpqcmU2NUhvTmFKQnI5dU5aelY1c0lMUE1jenpoUWovZk1oejMNCi9RSURBUUFCDQotLS0tLUVORCBQVUJMSUMgS0VZLS0tLS0="
   }
 }
 
@@ -75,6 +76,12 @@ variable "cloudwatch_log_retention" {
 
 variable "offender_api_allowed_cidrs" {
   description = "Allowed ingress CIDRs for offender api (aka community api)"
+  type        = "list"
+  default     = []
+}
+
+variable "offender_api_allowed_secure_cidrs" {
+  description = "Allowed ingress CIDRs for secure version of offender api (aka community api)"
   type        = "list"
   default     = []
 }
