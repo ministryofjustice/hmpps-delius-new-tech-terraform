@@ -50,6 +50,10 @@
         {
             "name": "JWT_PUBLIC_KEY",
             "value": "${env_jwt_public_key}"
+        },
+        {
+          "name": "DELIUS_LDAP_USERS_BASE",
+          "value": "${env_delius_ldap_users_base}"
         }
       ],
     "secrets": [
