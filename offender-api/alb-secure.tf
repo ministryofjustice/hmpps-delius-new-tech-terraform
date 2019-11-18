@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "offenderapi_secure_target_group" {
 
   health_check {
     protocol = "HTTP"
-    path     = "/api/info"
+    path     = "/health/ping"
     matcher  = "200-399"
   }
 }
@@ -88,7 +88,7 @@ resource "aws_lb_listener_rule" "ping_lb_newtechweb_rule" {
 
   condition {
     field  = "path-pattern"
-    values = ["/ping"]
+    values = ["/health/ping"]
   }
 
   action {
