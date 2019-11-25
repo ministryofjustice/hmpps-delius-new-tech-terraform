@@ -99,6 +99,7 @@ data "template_file" "offenderapi_task_def_template" {
     env_oracledb_servicename       = "${var.offenderapi_conf["env_oracledb_servicename"]}"
     env_debug                      = "${var.offenderapi_conf["env_debug"]}"
     env_alfresco_baseurl           = "https://alfresco.${data.terraform_remote_state.vpc.public_zone_name}/alfresco/s/noms-spg"
+    env_push_base_url              = "https://interface-app-internal.${local.external_domain}/api"
     env_jwt_public_key             = "${var.offenderapi_conf["env_jwt_public_key"]}"
     env_delius_ldap_users_base    =  "${data.terraform_remote_state.delius_ldap.ldap_base_users}"
   }

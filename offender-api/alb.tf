@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "offenderapi_target_group" {
 
   health_check {
     protocol = "HTTP"
-    path     = "/api/info"
+    path     = "/health/ping"
     matcher  = "200-399"
   }
 }
