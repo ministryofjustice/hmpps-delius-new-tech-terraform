@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "docker.io/mojdigitalstudio/deliusapi"
-    image_version = "2019-12-04.807.DT-245-Build-Docker"
+    image_version = "2019-12-04.814"
     cpu           = "1024"
     memory        = "512"
 
