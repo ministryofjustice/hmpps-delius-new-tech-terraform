@@ -47,8 +47,8 @@ variable "offenderapi_conf" {
   type        = "map"
 
   default = {
-    image         = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-api"
-    image_version = "0.1.42"
+    image         = "docker.io/mojdigitalstudio/deliusapi"
+    image_version = "2019-12-04.807.DT-245-Build-Docker"
     cpu           = "1024"
     memory        = "512"
 
