@@ -47,8 +47,8 @@ variable "offenderapi_conf" {
   type        = "map"
 
   default = {
-    image         = "docker.io/mojdigitalstudio/deliusapi"
-    image_version = "2019-12-04.814"
+    image         = "docker.io/mojdigitalstudio/community-api"
+    image_version = "2019-12-10.869"
     cpu           = "1024"
     memory        = "512"
 
