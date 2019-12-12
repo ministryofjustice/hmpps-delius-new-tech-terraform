@@ -69,15 +69,12 @@ resource "aws_ecs_service" "casenotes_service" {
       "${data.terraform_remote_state.delius_core_security_groups.sg_newtech_casenotes_out_id}"
       ]
   }
-  # Not horizontally scalable - single instance
-  desired_count = 1
+  # Disabled as have new case notes to probation service in cloud platform
+  desired_count = 0
   depends_on    = ["aws_iam_role.casenotes_task_role"]
   service_registries {
     registry_arn = "${aws_service_discovery_service.casenotes_svc_record.arn}"
     container_name = "casenotes"
-  }
-  lifecycle {
-    ignore_changes = ["desired_count"]
   }
 }
 
