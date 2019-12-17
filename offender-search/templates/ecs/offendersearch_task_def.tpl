@@ -48,12 +48,6 @@
           "value": "${region}"
         }
       ],
-    "secrets": [
-        {
-            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offenderapi/appinsights_key"
-        }
-    ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [
