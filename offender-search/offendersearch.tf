@@ -12,7 +12,7 @@ resource "aws_security_group_rule" "offendersearch_search_out" {
   to_port                  = 443
   protocol                 = "tcp"
   source_security_group_id = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
-  security_group_id        = "${data.terraform_remote_state.delius_core_security_groups.sg_offendersearch_id}"
+  security_group_id        = "${aws_security_group.sg_offendersearch.id}"
 }
 
 
@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "search_in" {
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
-  source_security_group_id = "${data.terraform_remote_state.delius_core_security_groups.sg_offendersearch_id}"
+  source_security_group_id = "${aws_security_group.sg_offendersearch.id}"
   security_group_id        = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
 }
 
@@ -48,28 +48,21 @@ resource "aws_ecs_service" "offendersearch_service" {
   # propagate_tags  = "TASK_DEFINITION"
 
   network_configuration = {
-    subnets         = ["${local.private_subnet_ids}"]
-    security_groups = ["${data.terraform_remote_state.delius_core_security_groups.sg_offendersearch_id}"]
+    subnets = ["${local.private_subnet_ids}"]
+
+    security_groups = [
+      "${aws_security_group.sg_offendersearch.id}",
+    ]
   }
   depends_on = ["aws_iam_role.offendersearch_task_role"]
-  load_balancer {
-    target_group_arn = "${data.terraform_remote_state.delius_core_ndelius.offendersearch_target_group_arn}"
-    container_name   = "offendersearch"
-    container_port   = "${var.offendersearch_conf["service_port"]}"
-  }
-  load_balancer {
-    target_group_arn = "${data.terraform_remote_state.delius_core_interface.newtech_offendersearch_target_group_arn}"
-    container_name   = "offendersearch"
-    container_port   = "${var.offendersearch_conf["service_port"]}"
-  }
-  load_balancer {
-    target_group_arn = "${data.terraform_remote_state.delius_core_spg.newtech_offendersearch_target_group_arn}"
-    container_name   = "offendersearch"
-    container_port   = "${var.offendersearch_conf["service_port"]}"
-  }
   service_registries {
     registry_arn   = "${aws_service_discovery_service.offendersearch_svc_record.arn}"
     container_name = "offendersearch"
+  }
+  load_balancer {
+    target_group_arn = "${aws_lb_target_group.offender_search_target_group.arn}"
+    container_name   = "offendersearch"
+    container_port   = "${var.offendersearch_conf["service_port"]}"
   }
   lifecycle {
     ignore_changes = ["desired_count"]

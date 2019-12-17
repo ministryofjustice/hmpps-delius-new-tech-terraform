@@ -2,7 +2,7 @@ resource "aws_lb_target_group" "offender_search_target_group" {
   name     = "${var.short_environment_name}-nt-offendersearch"
   vpc_id   = "${data.terraform_remote_state.vpc.vpc_id}"
   protocol = "HTTP"
-  port     = "${var.offendersearch_conf["env_service_port"]}"
+  port     = "${var.offendersearch_conf["service_port"]}"
   tags     = "${merge(var.tags, map("Name", "${var.short_environment_name}-newtech-offender-search"))}"
 
   # Targets will be ECS tasks running in awsvpc mode so type needs to be ip
