@@ -129,6 +129,7 @@ pipeline {
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
         string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'master')
+        booleanParam(name: 'deploy_NTDOffenderSearch', defaultValue: true, description: 'New Tech Offender Search Service?')
         booleanParam(name: 'deploy_NTCaseNotes', defaultValue: true, description: 'Deploy New Tech Case Notes?')
         booleanParam(name: 'deploy_NTPDFGenerator', defaultValue: true, description: 'New Tech PDF Generator?')
         booleanParam(name: 'deploy_NTOffenderAPI', defaultValue: true, description: 'New Tech Offender API?')
@@ -152,6 +153,15 @@ pipeline {
                 }
                 prepare_env()
             }
+        }
+
+        stage('New Tech Offender Search Service') {
+          when { expression { return params.deploy_NTDOffenderSearch } }
+          steps {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+              do_terraform(project.config, environment_name, project.newtech, 'offender-search')
+            }
+          }
         }
 
         stage('New Tech Case Notes') {
