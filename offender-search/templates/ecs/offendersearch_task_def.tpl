@@ -4,7 +4,7 @@
     "essential": true,
     "interactive": true,
     "healthCheck": {
-        "command": [ "CMD-SHELL", "curl -s http://localhost:${service_port}/health/ping | jq -r -e '.|select(.status==\"OK\")' || exit 1" ],
+        "command": [ "CMD-SHELL", "curl -s http://localhost:8080/info" ],
         "interval": 60,
         "retries": 2,
         "startPeriod": 60,
