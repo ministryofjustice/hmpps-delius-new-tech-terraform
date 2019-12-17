@@ -18,8 +18,8 @@ resource "aws_security_group_rule" "offendersearch_search_out" {
 
 resource "aws_security_group_rule" "offenderapi_http_in" {
   type                     = "ingress"
-  from_port                = "${var.offendersearch_conf["env_service_port"]}"
-  to_port                  = "${var.offendersearch_conf["env_service_port"]}"
+  from_port                = "${var.offendersearch_conf["service_port"]}"
+  to_port                  = "${var.offendersearch_conf["service_port"]}"
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.offendersearch_lb_sg.id}"
   security_group_id        = "${aws_security_group.sg_offendersearch.id}"

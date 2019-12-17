@@ -17,8 +17,8 @@ resource "aws_security_group_rule" "offendersearchlb_https_in" {
 
 resource "aws_security_group_rule" "offendersearchlb_http_out" {
   type                     = "egress"
-  from_port                = "${var.offendersearch_conf["env_service_port"]}"
-  to_port                  = "${var.offendersearch_conf["env_service_port"]}"
+  from_port                = "${var.offendersearch_conf["service_port"]}"
+  to_port                  = "${var.offendersearch_conf["service_port"]}"
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.sg_offendersearch.id}"
   security_group_id        = "${aws_security_group.offendersearch_lb_sg.id}"
