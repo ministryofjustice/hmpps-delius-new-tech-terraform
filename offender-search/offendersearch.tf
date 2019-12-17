@@ -16,13 +16,13 @@ resource "aws_security_group_rule" "offendersearch_search_out" {
 }
 
 
-resource "aws_security_group_rule" "search_in" {
+resource "aws_security_group_rule" "offenderapi_http_in" {
   type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
+  from_port                = "${var.offendersearch_conf["env_service_port"]}"
+  to_port                  = "${var.offendersearch_conf["env_service_port"]}"
   protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.sg_offendersearch.id}"
-  security_group_id        = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
+  source_security_group_id = "${aws_security_group.offendersearch_lb_sg.id}"
+  security_group_id        = "${aws_security_group.sg_offendersearch.id}"
 }
 
 

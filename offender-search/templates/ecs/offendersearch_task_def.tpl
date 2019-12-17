@@ -20,6 +20,14 @@
     },
     "environment": [
         {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "elasticsearch"
+        },
+        {
+            "name": "JWT_PUBLIC_KEY",
+            "value": "${env_jwt_public_key}"
+        },
+        {
           "name": "ELASTIC_SEARCH_HOST",
           "value": "${env_elastic_search_host}"
         },
@@ -40,6 +48,12 @@
           "value": "${region}"
         }
       ],
+    "secrets": [
+        {
+            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offenderapi/appinsights_key"
+        }
+    ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [

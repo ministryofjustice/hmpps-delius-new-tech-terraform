@@ -1,3 +1,29 @@
+resource "aws_security_group" "offendersearch_lb_sg" {
+  name        = "${local.name_prefix}-offsrchlb-pub-sg"
+  description = "New Tech Offender Search LB Security Group"
+  vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
+  tags        = "${merge(var.tags, map("Name", "${local.name_prefix}-offsrchlb-pub-sg"))}"
+}
+
+
+resource "aws_security_group_rule" "offendersearchlb_https_in" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.offender_search_allowed_secure_cidrs}"]
+  security_group_id = "${aws_security_group.offendersearch_lb_sg.id}"
+}
+
+resource "aws_security_group_rule" "offendersearchlb_http_out" {
+  type                     = "egress"
+  from_port                = "${var.offendersearch_conf["env_service_port"]}"
+  to_port                  = "${var.offendersearch_conf["env_service_port"]}"
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.sg_offendersearch.id}"
+  security_group_id        = "${aws_security_group.offendersearch_lb_sg.id}"
+}
+
 resource "aws_lb_target_group" "offender_search_target_group" {
   name     = "${var.short_environment_name}-nt-offendersearch"
   vpc_id   = "${data.terraform_remote_state.vpc.vpc_id}"
@@ -18,7 +44,7 @@ resource "aws_lb_target_group" "offender_search_target_group" {
 resource "aws_lb" "offender_search_alb" {
   name            = "${local.name_prefix}-offendersearch-alb"
   internal        = false
-  security_groups = ["${aws_security_group.sg_offendersearch.id}"]
+  security_groups = ["${aws_security_group.offendersearch_lb_sg.id}"]
   subnets         = ["${local.public_subnet_ids}"]
   tags            = "${merge(var.tags, map("Name", "${local.name_prefix}-offendersearch-pub-alb"))}"
 
