@@ -28,26 +28,36 @@
             "value": "${env_jwt_public_key}"
         },
         {
-          "name": "ELASTIC_SEARCH_HOST",
+          "name": "ELASTICSEARCH_HOST",
           "value": "${env_elastic_search_host}"
         },
         {
-          "name": "ELASTIC_SEARCH_PORT",
+          "name": "ELASTICSEARCH_PORT",
           "value": "${env_elastic_search_port}"
         },
         {
-          "name": "ELASTIC_SEARCH_SCHEME",
+          "name": "ELASTICSEARCH_SCHEME",
           "value": "${env_elastic_search_scheme}"
         },
         {
-          "name": "ELASTIC_SEARCH_AWS_SIGNREQUESTS",
+          "name": "ELASTICSEARCH_AWS_SIGNREQUESTS",
           "value": "${env_elastic_search_sign_requests}"
         },
         {
-          "name": "ELASTIC_SEARCH_AWS_REGION",
+          "name": "ELASTICSEARCH_PROVIDER",
+          "value": "aws"
+        },
+        {
+          "name": "AWS_REGION",
           "value": "${region}"
         }
       ],
+    "secrets": [
+        {
+            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+            "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offenderapi/appinsights_key"
+        }
+    ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [
