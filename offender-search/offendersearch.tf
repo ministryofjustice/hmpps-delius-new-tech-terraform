@@ -15,6 +15,33 @@ resource "aws_security_group_rule" "offendersearch_search_out" {
   security_group_id        = "${aws_security_group.sg_offendersearch.id}"
 }
 
+resource "aws_security_group_rule" "offendersearch_https_out" {
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.sg_offendersearch.id}"
+}
+
+resource "aws_security_group_rule" "offendersearch_dnssec_out" {
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.sg_offendersearch.id}"
+}
+
+resource "aws_security_group_rule" "offendersearch_dns_out" {
+  type              = "egress"
+  from_port         = 53
+  to_port           = 53
+  protocol          = "udp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.sg_offendersearch.id}"
+}
+
 
 resource "aws_security_group_rule" "offenderapi_http_in" {
   type                     = "ingress"
