@@ -15,6 +15,15 @@ resource "aws_security_group_rule" "offendersearch_search_out" {
   security_group_id        = "${aws_security_group.sg_offendersearch.id}"
 }
 
+resource "aws_security_group_rule" "search_in" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.sg_offendersearch.id}"
+  security_group_id        = "${data.terraform_remote_state.newtech_search.newtech_search_config["securitygroup_id"]}"
+}
+
 resource "aws_security_group_rule" "offendersearch_https_out" {
   type              = "egress"
   from_port         = 443
