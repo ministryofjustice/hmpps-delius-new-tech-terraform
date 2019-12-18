@@ -71,10 +71,10 @@ variable "offendersearch_conf" {
     ecs_target_cpu = "60"
 
     # Offender search service env vars - defaults mirror those set in the app's application.yaml file
-    env_elastic_search_host              = ""          # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
-    env_elastic_search_port              = 443         # ELASTIC_SEARCH_PORT
-    env_elastic_search_scheme            = "https"     # ELASTIC_SEARCH_SCHEME=
-    env_elastic_search_sign_requests     = "true"      # ELASTIC_SEARCH_AWS_SIGNREQUESTS
+    env_elastic_search_host              = ""          # ELASTICSEARCH_HOST - will be pulled from remote state of search component
+    env_elastic_search_port              = 443         # ELASTICSEARCH_PORT
+    env_elastic_search_scheme            = "https"     # ELASTICSEARCH_SCHEME=
+    env_elastic_search_sign_requests     = "true"      # ELASTICSEARCH_AWS_SIGNREQUESTS
   }
 }
 

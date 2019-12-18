@@ -48,7 +48,7 @@ resource "aws_security_group_rule" "offenderapi_http_in" {
   from_port                = "${var.offendersearch_conf["service_port"]}"
   to_port                  = "${var.offendersearch_conf["service_port"]}"
   protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.offendersearch_lb_sg.id}"
+  source_security_group_id = "${aws_security_group.sg_offendersearch_lb.id}"
   security_group_id        = "${aws_security_group.sg_offendersearch.id}"
 }
 
@@ -70,9 +70,6 @@ resource "aws_ecs_service" "offendersearch_service" {
   name            = "${local.name_prefix}-offendersearch-pri-ecs"
   cluster         = "${data.terraform_remote_state.ecs_cluster.shared_ecs_cluster_id}"
   task_definition = "${aws_ecs_task_definition.offendersearch_task_def.arn}"
-
-  # When new tag and arn formats are accepted in an environment - tags can be propagated
-  # propagate_tags  = "TASK_DEFINITION"
 
   network_configuration = {
     subnets = ["${local.private_subnet_ids}"]
@@ -142,7 +139,6 @@ resource "aws_service_discovery_service" "offendersearch_svc_record" {
     routing_policy = "MULTIVALUE"
   }
 
-  # ECS service helath check
   health_check_custom_config {
     failure_threshold = 1
   }
