@@ -58,7 +58,7 @@ variable "offendersearch_conf" {
 
   default = {
     image         = "docker.io/mojdigitalstudio/offender-search"
-    image_version = "2019-12-11.11"
+    image_version = "2019-12-18.15"
     service_port  = 8080
     cpu           = "1024"
     memory        = "2048"
