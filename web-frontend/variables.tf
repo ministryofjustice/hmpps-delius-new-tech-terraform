@@ -72,19 +72,23 @@ variable "web_conf" {
     ecs_target_cpu = "60"
 
     # Web env vars - defaults mirror those set in the app's application.conf file
-    env_application_secret               = ""          # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
-    env_elastic_search_host              = ""          # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
-    env_elastic_search_port              = 443         # ELASTIC_SEARCH_PORT
-    env_elastic_search_scheme            = "https"     # ELASTIC_SEARCH_SCHEME=
-    env_elastic_search_sign_requests     = "true"      # ELASTIC_SEARCH_AWS_SIGNREQUESTS
-    env_custody_api_auth_username        = ""          # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
-    env_custody_api_auth_password        = ""          # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
-    env_params_user_token_valid_duration = "1h"        # PARAMS_USER_TOKEN_VALID_DURATION
-    env_store_provider                   = "alfresco"  # STORE_PROVIDER
-    env_alfresco_scheme                  = "https"     # Either https or http
-    env_store_alfresco_user              = "N00"       # STORE_ALFRESCO_USER
-    env_prisoner_api_provider            = "custody"   # PRISONER_API_PROVIDER
-    env_base_path                        = "/newTech/" # BASE_PATH
+    env_application_secret                 = ""          # APPLICATION_SECRET - no default - a value will be pulled from ssm at build time
+    env_elastic_search_host                = ""          # ELASTIC_SEARCH_HOST - will be pulled from remote state of search component
+    env_elastic_search_port                = 443         # ELASTIC_SEARCH_PORT
+    env_elastic_search_scheme              = "https"     # ELASTIC_SEARCH_SCHEME=
+    env_elastic_search_sign_requests       = "true"      # ELASTIC_SEARCH_AWS_SIGNREQUESTS
+    env_custody_api_auth_username          = ""          # CUSTODY_API_USERNAME - no default - a value will be pulled from ssm at build time
+    env_custody_api_auth_password          = ""          # CUSTODY_API_PASSWORD - no default - a value will be pulled from ssm at build time
+    env_params_user_token_valid_duration   = "1h"        # PARAMS_USER_TOKEN_VALID_DURATION
+    env_store_provider                     = "alfresco"  # STORE_PROVIDER
+    env_alfresco_scheme                    = "https"     # Either https or http
+    env_store_alfresco_user                = "N00"       # STORE_ALFRESCO_USER
+    env_prisoner_api_provider              = "custody"   # PRISONER_API_PROVIDER
+    env_base_path                          = "/newTech/" # BASE_PATH
+    env_feedback_form_url                  = "https://goo.gl/forms/6HezOsoLUEDYkDgX2" # FEEDBACK_FORM_URL
+    env_feedback_parom1_form_url           = "https://goo.gl/forms/tau33AGsZhYCbTpk1" # FEEDBACK_PAROM1_FORM_URL
+    env_feedback_search_form_url           = "https://forms.gle/iWpkM21KtNDgzFAm7"    # FEEDBACK_SEARCH_FORM_URL
+    env_feedback_offender_summary_form_url = "https://goo.gl/forms/SVgL3CuCNpvkuHxJ2" # FEEDBACK_OFFENDER_SUMMARY_FORM_URL
   }
 }
 
