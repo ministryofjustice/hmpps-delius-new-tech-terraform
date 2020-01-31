@@ -58,6 +58,10 @@
         {
             "name": "DELIUS_BASEURL",
             "value": "${env_push_base_url}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_CUSTODY",
+            "value": "${env_features_noms_update_custody}"
         }
       ],
     "secrets": [
