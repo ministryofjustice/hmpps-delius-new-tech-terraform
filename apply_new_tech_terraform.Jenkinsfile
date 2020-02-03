@@ -129,11 +129,11 @@ pipeline {
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
         string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'master')
-        booleanParam(name: 'deploy_NTDOffenderSearch', defaultValue: false, description: 'New Tech Offender Search Service?')
         booleanParam(name: 'deploy_NTCaseNotes', defaultValue: true, description: 'Deploy New Tech Case Notes?')
         booleanParam(name: 'deploy_NTPDFGenerator', defaultValue: true, description: 'New Tech PDF Generator?')
         booleanParam(name: 'deploy_NTOffenderAPI', defaultValue: true, description: 'New Tech Offender API?')
         booleanParam(name: 'deploy_NTElasticSearch', defaultValue: true, description: 'New Tech ElasticSearch?')
+        booleanParam(name: 'deploy_NTDOffenderSearch', defaultValue: false, description: 'New Tech Offender Search Service?')
         booleanParam(name: 'deploy_NTOffenderPollPush', defaultValue: true, description: 'New Tech Offender Poll Push?')
         booleanParam(name: 'deploy_NTWebFrontend', defaultValue: true, description: 'New Tech Web Frontend?')
         booleanParam(name: 'deploy_NTDashboards', defaultValue: true, description: 'New Tech Dashboards?')
@@ -153,15 +153,6 @@ pipeline {
                 }
                 prepare_env()
             }
-        }
-
-        stage('New Tech Offender Search Service') {
-          when { expression { return params.deploy_NTDOffenderSearch } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'offender-search')
-            }
-          }
         }
 
         stage('New Tech Case Notes') {
@@ -196,6 +187,15 @@ pipeline {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               do_terraform(project.config, environment_name, project.newtech, 'search')
+            }
+          }
+        }
+
+        stage('New Tech Offender Search Service') {
+          when { expression { return params.deploy_NTDOffenderSearch } }
+          steps {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+              do_terraform(project.config, environment_name, project.newtech, 'offender-search')
             }
           }
         }
