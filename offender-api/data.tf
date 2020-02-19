@@ -103,6 +103,7 @@ data "template_file" "offenderapi_task_def_template" {
     env_jwt_public_key             = "${var.offenderapi_conf["env_jwt_public_key"]}"
     env_delius_ldap_users_base    =  "${data.terraform_remote_state.delius_ldap.ldap_base_users}"
     env_features_noms_update_custody = "${var.offenderapi_conf["env_features_noms_update_custody"]}"
+    env_features_noms_update_booking_number = "${var.offenderapi_conf["env_features_noms_update_booking_number"]}"
   }
 }
 

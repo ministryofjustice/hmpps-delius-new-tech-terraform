@@ -62,6 +62,10 @@
         {
             "name": "FEATURES_NOMS_UPDATE_CUSTODY",
             "value": "${env_features_noms_update_custody}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_BOOKING_NUMBER",
+            "value": "${env_features_noms_update_booking_number}"
         }
       ],
     "secrets": [
