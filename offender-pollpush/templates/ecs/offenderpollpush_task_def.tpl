@@ -84,19 +84,20 @@
           "value": "${env_sns_region}"
         },
         {
-          "name": "SNS_MSG_EVENT_TYPE",
-          "value": "${env_sns_msg_event_type}"
-        },
-        {
-          "name": "SNS_MSG_SOURCE",
-          "value": "${env_sns_msg_source}"
-        },
-        {
-          "name": "SNS_MSG_SUBJECT",
-          "value": "${env_sns_msg_subject}"
+          "name": "SNS_ARN_TOPIC",
+          "value": "${env_sns_arn_topic}"
         }
       ],
-    "secrets": [],
+    "secrets": [
+        {
+          "name": "SNS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offpollpusher/sns_access_key_id"
+        },
+        {
+          "name": "SNS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offpollpusher/sns_secret_access_key"
+        },
+    ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [],
