@@ -50,7 +50,7 @@
         {
           "name": "ELASTIC_SEARCH_CLUSTER",
           "value": "${env_elastic_search_cluster}"
-        },     
+        },
         {
           "name": "ELASTIC_SEARCH_PORT",
           "value": "${env_elastic_search_port}"
@@ -78,6 +78,22 @@
         {
           "name": "POLL_SECONDS",
           "value": "${env_poll_seconds}"
+        },
+        {
+          "name": "SNS_REGION",
+          "value": "${env_sns_region}"
+        },
+        {
+          "name": "SNS_MSG_EVENT_TYPE",
+          "value": "${env_sns_msg_event_type}"
+        },
+        {
+          "name": "SNS_MSG_SOURCE",
+          "value": "${env_sns_msg_source}"
+        },
+        {
+          "name": "SNS_MSG_SUBJECT",
+          "value": "${env_sns_msg_subject}"
         }
       ],
     "secrets": [],
