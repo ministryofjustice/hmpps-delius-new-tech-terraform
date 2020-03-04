@@ -96,7 +96,7 @@
         {
           "name": "SNS_SECRET_ACCESS_KEY",
           "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offpollpusher/sns_secret_access_key"
-        },
+        }
     ],
     "volumesFrom": [],
     "mountPoints": [],
