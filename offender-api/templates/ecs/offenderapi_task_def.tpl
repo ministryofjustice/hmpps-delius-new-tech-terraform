@@ -66,6 +66,10 @@
         {
             "name": "FEATURES_NOMS_UPDATE_BOOKING_NUMBER",
             "value": "${env_features_noms_update_booking_number}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_KEYDATES",
+            "value": "${env_features_noms_update_keydates}"
         }
       ],
     "secrets": [
