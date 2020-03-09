@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "docker.io/mojdigitalstudio/community-api"
-    image_version = "2020-02-28.1090"
+    image_version = "2020-03-09.1143"
     cpu           = "1024"
     memory        = "512"
 
@@ -68,6 +68,7 @@ variable "offenderapi_conf" {
     env_jwt_public_key             = "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0NCk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBc09QQXRzUUFEZGJSdS9FSDZMUDUNCkJNMS9tRjQwVkRCbjEyaEpTWFBQZDVXWUswSExZMjBWTTdBeHhSOW1uWUNGNlNvMVd0N2ZHTnFVeC9XeWVtQnANCklKTnJzLzdEendnM3V3aVF1Tmg0ektSK0VHeFdiTHdpM3l3N2xYUFV6eFV5QzV4dDg4ZS83dk8rbHoxb0NuaXoNCmpoNG14TkFtczZaWUY3cWZuaEpFOVd2V1B3TExrb2prWnUxSmR1c0xhVm93TjdHVEdOcE1FOGR6ZUprYW0wZ3ANCjRveEhRR2hNTjg3SzZqcVgzY0V3TzZEdmhlbWc4d2hzOTZuelFsOG4yTEZ2QUsydXA5UHJyOUdpMkxGZ1R0N0sNCnFYQTA2a0M0S2d3MklSMWVGZ3pjQmxUT0V3bXpqcmU2NUhvTmFKQnI5dU5aelY1c0lMUE1jenpoUWovZk1oejMNCi9RSURBUUFCDQotLS0tLUVORCBQVUJMSUMgS0VZLS0tLS0="
     env_features_noms_update_custody = "false"
     env_features_noms_update_booking_number = "false"
+    env_features_noms_update_keydates = "false"
   }
 }
 
