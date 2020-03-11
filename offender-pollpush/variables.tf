@@ -49,7 +49,7 @@ variable "offenderpollpush_conf" {
   default = {
     image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-offender-pollpush"
 
-    image_version = "0.1.05"
+    image_version = "0.1.10"
     cpu           = "1024"
     memory        = "512"
 
@@ -64,7 +64,8 @@ variable "offenderpollpush_conf" {
     env_elastic_search_aws_servicename  = "es"
     env_all_pull_page_size              = "1000"
     env_process_page_size               = "10"
-    env_poll_seconds                    = "5"
+    env_poll_seconds                    = "60"
+    env_sns_region                      = "eu-west-2"
   }
 }
 

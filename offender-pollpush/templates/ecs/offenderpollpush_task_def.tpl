@@ -50,7 +50,7 @@
         {
           "name": "ELASTIC_SEARCH_CLUSTER",
           "value": "${env_elastic_search_cluster}"
-        },     
+        },
         {
           "name": "ELASTIC_SEARCH_PORT",
           "value": "${env_elastic_search_port}"
@@ -78,9 +78,26 @@
         {
           "name": "POLL_SECONDS",
           "value": "${env_poll_seconds}"
+        },
+        {
+          "name": "SNS_REGION",
+          "value": "${env_sns_region}"
+        },
+        {
+          "name": "SNS_ARN_TOPIC",
+          "value": "${env_sns_arn_topic}"
         }
       ],
-    "secrets": [],
+    "secrets": [
+        {
+          "name": "SNS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offpollpusher/sns_access_key_id"
+        },
+        {
+          "name": "SNS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:ssm:${region}:${aws_account_id}:parameter/${environment_name}/${project_name}/newtech/offpollpusher/sns_secret_access_key"
+        }
+    ],
     "volumesFrom": [],
     "mountPoints": [],
     "portMappings": [],

@@ -119,5 +119,7 @@ data "template_file" "offenderpollpush_task_def_template" {
     env_all_pull_page_size              = "${var.offenderpollpush_conf["env_all_pull_page_size"]}"
     env_process_page_size               = "${var.offenderpollpush_conf["env_process_page_size"]}"
     env_poll_seconds                    = "${var.offenderpollpush_conf["env_poll_seconds"]}"
+    env_sns_arn_topic                   = "${var.offenderpollpush_conf["env_sns_arn_topic"]}"
+    env_sns_region                      = "${var.offenderpollpush_conf["env_sns_region"]}"
   }
 }
