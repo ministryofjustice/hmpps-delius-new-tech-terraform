@@ -50,6 +50,10 @@
         {
           "name": "AWS_REGION",
           "value": "${region}"
+        },
+        {
+           "name": "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI"
+           "value": "${env_oauth2_jwt_jwk_set_uri}"
         }
       ],
     "secrets": [
