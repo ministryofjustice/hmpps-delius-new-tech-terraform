@@ -24,10 +24,6 @@
           "value": "elasticsearch"
         },
         {
-            "name": "JWT_PUBLIC_KEY",
-            "value": "${env_jwt_public_key}"
-        },
-        {
           "name": "ELASTICSEARCH_HOST",
           "value": "${env_elastic_search_host}"
         },

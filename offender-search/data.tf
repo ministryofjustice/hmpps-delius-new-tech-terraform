@@ -143,7 +143,7 @@ data "template_file" "offendersearch_task_def_template" {
     env_elastic_search_port              = "${var.offendersearch_conf["env_elastic_search_port"]}"
     env_elastic_search_scheme            = "${var.offendersearch_conf["env_elastic_search_scheme"]}"
     env_elastic_search_sign_requests     = "${var.offendersearch_conf["env_elastic_search_sign_requests"]}"
-    env_jwt_public_key                   = "${var.offendersearch_conf["env_jwt_public_key"]}"
+    env_oauth2_jwt_jwk_set_uri           = "${var.offendersearch_conf["env_oauth2_jwt_jwk_set_uri"]}"
   }
 }
 
