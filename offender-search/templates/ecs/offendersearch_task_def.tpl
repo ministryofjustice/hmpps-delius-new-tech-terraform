@@ -21,11 +21,7 @@
     "environment": [
         {
           "name": "SPRING_PROFILES_ACTIVE",
-          "value": "elasticsearch"
-        },
-        {
-            "name": "JWT_PUBLIC_KEY",
-            "value": "${env_jwt_public_key}"
+          "value": "elasticsearch,"
         },
         {
           "name": "ELASTICSEARCH_HOST",
@@ -50,6 +46,10 @@
         {
           "name": "AWS_REGION",
           "value": "${region}"
+        },
+        {
+           "name": "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI",
+           "value": "${env_oauth2_jwt_jwk_set_uri}"
         }
       ],
     "secrets": [
