@@ -21,7 +21,7 @@
     "environment": [
         {
           "name": "SPRING_PROFILES_ACTIVE",
-          "value": "elasticsearch"
+          "value": "elasticsearch,stdout"
         },
         {
           "name": "ELASTICSEARCH_HOST",
