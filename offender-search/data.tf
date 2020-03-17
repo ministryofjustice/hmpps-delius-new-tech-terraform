@@ -101,9 +101,7 @@ data "aws_caller_identity" "current" {}
 # Template files for Offender Search task role and execution role definitions
 data "template_file" "ecstasks_assumerole_template" {
   template = "${file("${path.module}/templates/iam/ecstasks_assumerole_policy.tpl")}"
-  vars     = {
-    env_oauth2_jwt_jwk_set_uri = "${var.offendersearch_conf["env_oauth2_jwt_jwk_set_uri"]}"
-  }
+  vars     = {}
 }
 
 data "template_file" "offendersearch_exec_policy_template" {
