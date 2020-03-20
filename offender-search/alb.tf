@@ -36,7 +36,7 @@ resource "aws_lb_target_group" "offender_search_target_group" {
 
   health_check {
     protocol = "HTTP"
-    path     = "/info"
+    path     = "/health/ping"
     matcher  = "200-399"
   }
 }
