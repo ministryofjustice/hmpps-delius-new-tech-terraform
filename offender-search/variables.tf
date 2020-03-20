@@ -64,7 +64,7 @@ variable "offendersearch_conf" {
     memory        = "2048"
 
     # ECS Task App Autoscaling min and max thresholds
-    ecs_scaling_min_capacity = 1
+    ecs_scaling_min_capacity = 2
     ecs_scaling_max_capacity = 5
 
     # ECS Task App AutoScaling will kick in above avg cpu util set here

@@ -4,7 +4,7 @@
     "essential": true,
     "interactive": true,
     "healthCheck": {
-        "command": [ "CMD-SHELL", "curl -s http://localhost:8080/info" ],
+        "command": [ "CMD-SHELL", "curl -s http://localhost:8080/health" ],
         "interval": 60,
         "retries": 2,
         "startPeriod": 60,
