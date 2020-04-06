@@ -70,6 +70,10 @@
         {
             "name": "FEATURES_NOMS_UPDATE_KEYDATES",
             "value": "${env_features_noms_update_keydates}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_NOMS_NUMBER",
+            "value": "${env_features_noms_update_noms_number}"
         }
       ],
     "secrets": [
