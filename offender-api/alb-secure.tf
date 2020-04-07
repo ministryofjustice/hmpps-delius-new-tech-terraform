@@ -73,8 +73,9 @@ resource "aws_lb_listener_rule" "secure_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
 
   condition {
-    field  = "path-pattern"
-    values = ["/secure/*"]
+    path_pattern {
+      values = ["/secure/*"]
+    }
   }
 
   action {
@@ -83,12 +84,18 @@ resource "aws_lb_listener_rule" "secure_lb_newtechweb_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "ping_lb_newtechweb_rule" {
+resource "aws_lb_listener_rule" "health_info_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
 
   condition {
-    field  = "path-pattern"
-    values = ["/ping"]
+    path_pattern {
+      values = [
+        "/health",
+        "/health/ping",
+        "/ping",
+        "/info"
+      ]
+    }
   }
 
   action {
@@ -97,40 +104,17 @@ resource "aws_lb_listener_rule" "ping_lb_newtechweb_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "healthping_lb_newtechweb_rule" {
+resource "aws_lb_listener_rule" "swagger_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
 
   condition {
-    field  = "path-pattern"
-    values = ["/health/ping"]
-  }
-
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
-  }
-}
-
-resource "aws_lb_listener_rule" "health_lb_newtechweb_rule" {
-  listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
-
-  condition {
-    field  = "path-pattern"
-    values = ["/health"]
-  }
-
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
-  }
-}
-
-resource "aws_lb_listener_rule" "info_lb_newtechweb_rule" {
-  listener_arn = "${aws_lb_listener.offenderapi_secure_lb_https_listener.arn}"
-
-  condition {
-    field  = "path-pattern"
-    values = ["/info"]
+    path_pattern {
+      values = [
+        "/swagger-*",
+        "/v2/api-docs",
+        "/webjars/springfox-swagger-ui/*"
+      ]
+    }
   }
 
   action {
