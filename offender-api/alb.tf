@@ -73,8 +73,9 @@ resource "aws_lb_listener_rule" "internal_lb_newtechweb_rule" {
   listener_arn = "${aws_lb_listener.offenderapi_lb_https_listener.arn}"
 
   condition {
-    field  = "path-pattern"
-    values = ["/*"]
+    path_pattern {
+      values = ["/*"]
+    }
   }
 
   action {
