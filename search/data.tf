@@ -34,6 +34,8 @@ data "template_file" "search_accesspolicy_template" {
   }
 }
 
+
+
 data "template_file" "cwlogs_accesspolicy_template" {
   template = "${file("${path.module}/templates/cwlogs_access_policy.tpl")}"
 
