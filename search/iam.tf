@@ -30,8 +30,8 @@ data "template_file" "cloudplatform_pcs_search_assumerole_policy_template" {
   template = "${file("${path.module}/templates/iam/search_cloudplatform_pcs_assume_role.tpl")}"
   vars = {
     environment_name         = "${var.environment_name}"
-    cloudplatform_account_id = "754256621582"
-    delius_iam_account_id    = "570551521311"
+    cloudplatform_account_id = "${lookup(var.aws_account_ids, "cloud-platform")}"
+    delius_iam_account_id    = "${lookup(var.aws_account_ids, "hmpps-probation")}"
   }
 }
 
