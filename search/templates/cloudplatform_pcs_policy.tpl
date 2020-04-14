@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Cross IAM permissions",
+            "Sid": "CrossIAMPermissions",
             "Effect": "Allow",
             "Action": [
                 "es:ESHttpHead",

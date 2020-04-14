@@ -6,7 +6,8 @@
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam::570551521311:root"
+          "arn:aws:iam::570551521311:Admins",
+          "arn:aws:iam::754256621582:remote-pcs-newtech-elasticsearch-service-role-${environment_name}"
         ]
       },
       "Action": "sts:AssumeRole"
