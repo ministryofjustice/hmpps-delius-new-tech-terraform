@@ -42,6 +42,11 @@ variable "tags" {
   type = "map"
 }
 
+variable aws_account_ids {
+  description = "List of all delius application environment AWS account IDs which will consume the centralised ECR repos - will be pulled from common env_config tfvars"
+  type        = "map"
+}
+
 variable "search_conf" {
   description = "Config map for New Tech ElasticSearch service"
   type        = "map"
