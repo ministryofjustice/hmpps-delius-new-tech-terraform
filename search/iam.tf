@@ -25,9 +25,8 @@ resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
 # https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1850507436/Probation+in+Court+services+access+NewTech+ElasticSearch+cluster
 #--------------------------------------------------------------------------------
 
-data "template_file" "cloudplatform_pcs_search_assumerole_policy_template" {
-
-  template = "${file("${path.module}/templates/iam/search_cloudplatform_pcs_assume_role.tpl")}"
+data "template_file" "cloudplatform_offender_search_assumerole_policy_template" {
+  template = "${file("${path.module}/templates/iam/cloudplatform_offender_search_assume_role.tpl")}"
   vars = {
     environment_name         = "${var.environment_name}"
     cloudplatform_account_id = "${lookup(var.aws_account_ids, "cloud-platform")}"
@@ -35,14 +34,17 @@ data "template_file" "cloudplatform_pcs_search_assumerole_policy_template" {
   }
 }
 
-resource "aws_iam_role" "cloudplatform_pcs_search_role" {
+resource "aws_iam_role" "cloudplatform_offender_search_role" {
+  name               = "cp-offender-search-es-service-role-${var.environment_name}"
+  description        = "IAM role for cloudplatform Offender Search access to NewTech Elasticsearch"
+  assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
   name               = "cp-pcs-newtech-es-service-role-${var.environment_name}"
   description        = "IAM role for cloudplatform PCS access to NewTech Elasticsearch"
   assume_role_policy = "${data.template_file.cloudplatform_pcs_search_assumerole_policy_template.rendered}"
 }
 
-data "template_file" "cloudplatform_pcs_search_policy_template" {
-  template = "${file("${path.module}/templates/cloudplatform_pcs_policy.tpl")}"
+data "template_file" "cloudplatform_offender_search_policy_template" {
+  template = "${file("${path.module}/templates/cloudplatform_offender_search_policy.tpl")}"
 
   vars = {
     region      = "${var.region}"
@@ -52,8 +54,8 @@ data "template_file" "cloudplatform_pcs_search_policy_template" {
 
 }
 
-resource "aws_iam_role_policy" "cloudplatform_pcs_search_role_policy" {
-  name = "remote-pcs-newtech-elasticsearch-service-role-policy"
-  role = "${aws_iam_role.cloudplatform_pcs_search_role.name}"
-  policy = "${data.template_file.cloudplatform_pcs_search_policy_template.rendered}"
+resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
+  name = "remote-offender-search-elasticsearch-service-role-policy"
+  role = "${aws_iam_role.cloudplatform_offender_search_role.name}"
+  policy = "${data.template_file.cloudplatform_offender_search_policy_template.rendered}"
 }
