@@ -19,7 +19,6 @@ resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonESFullAccess"
 }
 
-
 #--------------------------------------------------------------------------------
 # Cloud Platform - Probation in Court Services access to Newtech Elasticsearch
 # https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1850507436/Probation+in+Court+services+access+NewTech+ElasticSearch+cluster
@@ -48,7 +47,6 @@ data "template_file" "cloudplatform_offender_search_policy_template" {
     account_id  = "${data.aws_caller_identity.current.account_id}"
     domain      = "${var.search_conf["es_domain"]}"
   }
-
 }
 
 resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
