@@ -19,7 +19,6 @@ resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonESFullAccess"
 }
 
-
 #--------------------------------------------------------------------------------
 # Cloud Platform - Probation in Court Services access to Newtech Elasticsearch
 # https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1850507436/Probation+in+Court+services+access+NewTech+ElasticSearch+cluster
@@ -35,12 +34,9 @@ data "template_file" "cloudplatform_offender_search_assumerole_policy_template" 
 }
 
 resource "aws_iam_role" "cloudplatform_offender_search_role" {
-  name               = "cp-offender-search-es-service-role-${var.environment_name}"
-  description        = "IAM role for cloudplatform Offender Search access to NewTech Elasticsearch"
+  name               = "cp-offender-search-service-role-${var.environment_name}"
+  description        = "IAM role for cloudplatform Offender Search access to Delius"
   assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
-  name               = "cp-pcs-newtech-es-service-role-${var.environment_name}"
-  description        = "IAM role for cloudplatform PCS access to NewTech Elasticsearch"
-  assume_role_policy = "${data.template_file.cloudplatform_pcs_search_assumerole_policy_template.rendered}"
 }
 
 data "template_file" "cloudplatform_offender_search_policy_template" {
@@ -51,11 +47,10 @@ data "template_file" "cloudplatform_offender_search_policy_template" {
     account_id  = "${data.aws_caller_identity.current.account_id}"
     domain      = "${var.search_conf["es_domain"]}"
   }
-
 }
 
 resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
-  name = "remote-offender-search-elasticsearch-service-role-policy"
+  name = "cp-offender-search-service-role-policy"
   role = "${aws_iam_role.cloudplatform_offender_search_role.name}"
   policy = "${data.template_file.cloudplatform_offender_search_policy_template.rendered}"
 }
