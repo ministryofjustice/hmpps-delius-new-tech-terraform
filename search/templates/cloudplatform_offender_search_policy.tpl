@@ -20,7 +20,7 @@
                 "es:Describe*",
                 "es:List*"
             ],
-            "Resource": "arn:aws:es:${region}:${account_id}:domain/*"
+            "Resource": "*"
         }
     ]
 }
