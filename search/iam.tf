@@ -35,12 +35,9 @@ data "template_file" "cloudplatform_offender_search_assumerole_policy_template" 
 }
 
 resource "aws_iam_role" "cloudplatform_offender_search_role" {
-  name               = "cp-offender-search-es-service-role-${var.environment_name}"
-  description        = "IAM role for cloudplatform Offender Search access to NewTech Elasticsearch"
+  name               = "cp-offender-search-service-role-${var.environment_name}"
+  description        = "IAM role for cloudplatform Offender Search access to Delius"
   assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
-  name               = "cp-pcs-newtech-es-service-role-${var.environment_name}"
-  description        = "IAM role for cloudplatform PCS access to NewTech Elasticsearch"
-  assume_role_policy = "${data.template_file.cloudplatform_pcs_search_assumerole_policy_template.rendered}"
 }
 
 data "template_file" "cloudplatform_offender_search_policy_template" {
@@ -55,7 +52,7 @@ data "template_file" "cloudplatform_offender_search_policy_template" {
 }
 
 resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
-  name = "remote-offender-search-elasticsearch-service-role-policy"
+  name = "cp-offender-search-service-role-policy"
   role = "${aws_iam_role.cloudplatform_offender_search_role.name}"
   policy = "${data.template_file.cloudplatform_offender_search_policy_template.rendered}"
 }
