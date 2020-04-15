@@ -26,7 +26,6 @@ resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
 #--------------------------------------------------------------------------------
 
 data "template_file" "cloudplatform_offender_search_assumerole_policy_template" {
-
   template = "${file("${path.module}/templates/iam/cloudplatform_offender_search_assume_role.tpl")}"
   vars = {
     environment_name         = "${var.environment_name}"
@@ -39,6 +38,9 @@ resource "aws_iam_role" "cloudplatform_offender_search_role" {
   name               = "cp-offender-search-es-service-role-${var.environment_name}"
   description        = "IAM role for cloudplatform Offender Search access to NewTech Elasticsearch"
   assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
+  name               = "cp-pcs-newtech-es-service-role-${var.environment_name}"
+  description        = "IAM role for cloudplatform PCS access to NewTech Elasticsearch"
+  assume_role_policy = "${data.template_file.cloudplatform_pcs_search_assumerole_policy_template.rendered}"
 }
 
 data "template_file" "cloudplatform_offender_search_policy_template" {
