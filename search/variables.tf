@@ -47,6 +47,11 @@ variable aws_account_ids {
   type        = "map"
 }
 
+variable cloudplatform_data {
+  description = "List of Cloudplatform reference data - will be pulled from common env_config tfvars"
+  type        = "map"
+}
+
 variable "search_conf" {
   description = "Config map for New Tech ElasticSearch service"
   type        = "map"

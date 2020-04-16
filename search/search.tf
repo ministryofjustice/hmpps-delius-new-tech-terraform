@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "search_ingress_cloudplatform" {
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["172.20.0.0/16"]
+  cidr_blocks       = ["${local.cloudplatform_cidr_range}"]
   description       = "ES and Kibana ingress from CloudPlatform"
 }
 
