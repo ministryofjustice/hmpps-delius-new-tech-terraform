@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "CrossIAMPermissionsElasticsearch",
+            "Sid": "CrossIAMPermissionsElasticsearchNewtechSearch",
             "Effect": "Allow",
             "Action": [
                 "es:ESHttpHead",
@@ -14,18 +14,17 @@
             "Resource":"arn:aws:es:${region}:${account_id}:domain/${domain}" 
         },
         {
-            "Sid": "CrossIAMPermissionsElasticsearchRead",
+            "Sid": "CrossIAMPermissionsElasticsearchReadOnly",
             "Effect": "Allow",
             "Action": [
                 "es:Describe*",
                 "es:Get*",
-                "es:List*",
-                
+                "es:List*"     
             ],
-            "Resource": "*"
+            "Resource":"*"
         },
         {
-            "Sid": "CrossIAMPermissionsCloudwatch",
+            "Sid": "CrossIAMPermissionsCloudwatchReadOnly",
             "Effect": "Allow",
             "Action": [
                 "cloudwatch:List*",
