@@ -24,6 +24,8 @@ locals {
 
   # Handle sandpit/dev shared env
   sandpit_domain = "sandpit-${var.search_conf["es_domain"]}"
+
+  cloudplatform_cidr_range = "${var.cloudplatform_data["cidr_range"]}"
 }
 
 # Build list of subnets from private subnet ids equal to number of ES subnets required

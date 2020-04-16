@@ -22,6 +22,16 @@ resource "aws_security_group_rule" "search_ingress_bastion" {
   description       = "ES and Kibana ingress via bastion"
 }
 
+resource "aws_security_group_rule" "search_ingress_cloudplatform" {
+  security_group_id = "${aws_security_group.search_sg.id}"
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 443
+  to_port           = 443
+  cidr_blocks       = ["${local.cloudplatform_cidr_range}"]
+  description       = "ES and Kibana ingress from CloudPlatform"
+}
+
 resource "aws_elasticsearch_domain" "search_domain" {
   domain_name = "${var.environment_name == "delius-core-sandpit"  ? local.sandpit_domain : var.search_conf["es_domain"]}"
   elasticsearch_version = "${var.search_conf["es_version"]}"
