@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "docker.io/mojdigitalstudio/community-api"
-    image_version = "2020-04-09.1278"
+    image_version = "2020-04-20.1290"
     cpu           = "1024"
     memory        = "512"
 
