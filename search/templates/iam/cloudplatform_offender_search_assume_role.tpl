@@ -6,7 +6,7 @@
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam::${cloudplatform_account_id}:role/${cloudplatform_offender_search_role_name}",
+          "arn:aws:sts::${cloudplatform_account_id}:assumed-role/${cloudplatform_offender_search_role_name}/kiam-kiam",
           "arn:aws:iam::${delius_iam_account_id}:root"
         ]
       },
