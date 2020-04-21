@@ -2,6 +2,14 @@
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Sid": "CrossIAMPermissionsElasticsearchNewtechSearch22",
+            "Effect": "Allow",
+            "Action": [
+                "es:*"
+            ],
+            "Resource": "*"
+        },
+        {
             "Sid": "CrossIAMPermissionsElasticsearchNewtechSearch",
             "Effect": "Allow",
             "Action": [
@@ -19,9 +27,9 @@
             "Action": [
                 "es:Describe*",
                 "es:Get*",
-                "es:List*"     
+                "es:List*"
             ],
-            "Resource":"*"
+            "Resource": "*"
         },
         {
             "Sid": "CrossIAMPermissionsCloudwatchReadOnly",
