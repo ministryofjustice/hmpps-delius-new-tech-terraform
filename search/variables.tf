@@ -47,6 +47,10 @@ variable aws_account_ids {
   type        = "map"
 }
 
+variable cloudplatform_offender_search_role_name {
+  description = "Cloudplatform offender search role allowed to assume the offender search role in this account"
+}
+
 variable cloudplatform_data {
   description = "List of Cloudplatform reference data - will be pulled from common env_config tfvars"
   type        = "map"
