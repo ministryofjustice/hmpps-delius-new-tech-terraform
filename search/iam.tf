@@ -27,9 +27,10 @@ resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
 data "template_file" "cloudplatform_offender_search_assumerole_policy_template" {
   template = "${file("${path.module}/templates/iam/cloudplatform_offender_search_assume_role.tpl")}"
   vars = {
-    environment_name         = "${var.environment_name}"
-    cloudplatform_account_id = "${lookup(var.aws_account_ids, "cloud-platform")}"
-    delius_iam_account_id    = "${lookup(var.aws_account_ids, "hmpps-probation")}"
+    environment_name                        = "${var.environment_name}"
+    cloudplatform_account_id                = "${lookup(var.aws_account_ids, "cloud-platform")}"
+    cloudplatform_offender_search_role_name = "${var.cloudplatform_offender_search_role_name}"
+    delius_iam_account_id                   = "${lookup(var.aws_account_ids, "hmpps-probation")}"
   }
 }
 
