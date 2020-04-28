@@ -49,7 +49,7 @@ variable "offenderpollpush_conf" {
   default = {
     image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-offender-pollpush"
 
-    image_version = "0.1.10"
+    image_version = "0.1.11"
     cpu           = "1024"
     memory        = "512"
 
