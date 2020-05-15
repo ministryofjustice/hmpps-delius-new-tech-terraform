@@ -57,8 +57,8 @@ variable "offendersearch_conf" {
   type        = "map"
 
   default = {
-    image         = "docker.io/mojdigitalstudio/offender-search"
-    image_version = "2020-05-15"
+    image         = "quay.io/hmpps/offender-search"
+    image_version = "2020-05-15.315.f552a5b"
     service_port  = 8080
     cpu           = "1024"
     memory        = "2048"
