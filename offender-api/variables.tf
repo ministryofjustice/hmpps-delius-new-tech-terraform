@@ -47,8 +47,8 @@ variable "offenderapi_conf" {
   type        = "map"
 
   default = {
-    image         = "docker.io/mojdigitalstudio/community-api"
-    image_version = "2020-05-14.1415.eecea3a"
+    image         = "quay.io/hmpps/community-api"
+    image_version = "2020-05-15.1430.564ef55"
     cpu           = "1024"
     memory        = "512"
 
