@@ -58,7 +58,7 @@ variable "offendersearch_conf" {
 
   default = {
     image         = "quay.io/hmpps/offender-search"
-    image_version = "2020-05-15.325.80062ff"
+    image_version = "2020-05-27.354.c095d6a"
     service_port  = 8080
     cpu           = "1024"
     memory        = "2048"
