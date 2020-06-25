@@ -35,7 +35,8 @@ data "template_file" "cloudplatform_offender_search_assumerole_policy_template" 
 }
 
 resource "aws_iam_role" "cloudplatform_offender_search_role" {
-  name               = "cp-offender-search-service-role-${var.environment_name}"
+  count              = "${local.role_cloudplatform_offender_search_role_envs}"
+  name               = "${local.cloudplatform_pcs_search_role_name}"
   description        = "IAM role for cloudplatform Offender Search access to Delius"
   assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
 }
@@ -51,7 +52,8 @@ data "template_file" "cloudplatform_offender_search_policy_template" {
 }
 
 resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
-  name = "cp-offender-search-service-role-policy"
-  role = "${aws_iam_role.cloudplatform_offender_search_role.name}"
+  count  = "${local.role_cloudplatform_offender_search_role_envs}"
+  name   = "cp-offender-search-service-role-policy"
+  role   = "${aws_iam_role.cloudplatform_offender_search_role.name}"
   policy = "${data.template_file.cloudplatform_offender_search_policy_template.rendered}"
 }
