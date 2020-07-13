@@ -59,7 +59,7 @@ variable "web_conf" {
   default = {
     image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
 
-    image_version = "0.2.13"
+    image_version = "0.2.15"
     service_port  = 9000
     cpu           = "1024"
     memory        = "512"
@@ -83,7 +83,7 @@ variable "web_conf" {
     env_store_provider                     = "alfresco"  # STORE_PROVIDER
     env_alfresco_scheme                    = "https"     # Either https or http
     env_store_alfresco_user                = "N00"       # STORE_ALFRESCO_USER
-    env_prisoner_api_provider              = "custody"   # PRISONER_API_PROVIDER
+    env_prisoner_api_provider              = "elite"     # PRISONER_API_PROVIDER
     env_base_path                          = "/newTech/" # BASE_PATH
     env_feedback_form_url                  = "https://goo.gl/forms/6HezOsoLUEDYkDgX2" # FEEDBACK_FORM_URL
     env_feedback_parom1_form_url           = "https://goo.gl/forms/tau33AGsZhYCbTpk1" # FEEDBACK_PAROM1_FORM_URL
