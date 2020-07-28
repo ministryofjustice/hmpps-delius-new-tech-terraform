@@ -59,6 +59,9 @@ variable "offenderapi_conf" {
     # ECS Task App AutoScaling will kick in above avg cpu util set here
     ecs_target_cpu = "60"
 
+    # Enable/disable public-facing load balancer for exposing Swagger docs (see alb-public.tf)
+    enable_public_lb = false
+
     # Task Def Env Vars
     env_service_port               = 8080
     env_oracledb_servicename       = "DNDA_TAF"

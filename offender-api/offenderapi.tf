@@ -25,6 +25,15 @@ resource "aws_security_group_rule" "offenderapi_secure_http_in" {
   security_group_id        = "${aws_security_group.offenderapi_sg.id}"
 }
 
+resource "aws_security_group_rule" "offenderapi_public_http_in" {
+  type                     = "ingress"
+  from_port                = "${var.offenderapi_conf["env_service_port"]}"
+  to_port                  = "${var.offenderapi_conf["env_service_port"]}"
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.offenderapi_public_lb_sg.id}"
+  security_group_id        = "${aws_security_group.offenderapi_sg.id}"
+}
+
 resource "aws_security_group_rule" "offenderapi_https_out" {
   type              = "egress"
   from_port         = 443
@@ -92,6 +101,11 @@ resource "aws_ecs_service" "offenderapi_service" {
   }
   load_balancer {
     target_group_arn = "${aws_lb_target_group.offenderapi_secure_target_group.arn}"
+    container_name   = "offenderapi"
+    container_port   = "${var.offenderapi_conf["env_service_port"]}"
+  }
+  load_balancer {
+    target_group_arn = "${aws_lb_target_group.offenderapi_public_target_group.arn}"
     container_name   = "offenderapi"
     container_port   = "${var.offenderapi_conf["env_service_port"]}"
   }
