@@ -109,7 +109,6 @@ resource "aws_ecs_service" "offenderapi_service" {
     container_name   = "offenderapi"
     container_port   = "${var.offenderapi_conf["env_service_port"]}"
   }
-  desired_count = "${var.offenderapi_conf["ecs_scaling_min_capacity"]}"
 
   lifecycle {
     ignore_changes = ["desired_count"]
