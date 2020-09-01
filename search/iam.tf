@@ -5,17 +5,20 @@ resource "aws_iam_service_linked_role" "search" {
 # IAM Role for Cognito auth'd users to assume when logged into Kibana
 # ES Permissions for the role are assigned in the ES access policy document
 resource "aws_iam_role" "search_kibana_role" {
+  count              = "${local.role_policy_attach_search}"
   name               = "${local.name_prefix}-kibanauser-pri-iam"
   assume_role_policy = "${data.template_file.search_kibana_assume_policy_template.rendered}"
 }
 
 resource "aws_iam_role_policy_attachment" "search_kibana_cognito_access" {
-  role     = "${aws_iam_role.search_kibana_role.name}"
+  count      = "${local.role_policy_attach_search}"
+  role       = "${aws_iam_role.search_kibana_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonESCognitoAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "search_kibana_es_access" {
-  role      = "${aws_iam_role.search_kibana_role.name}"
+  count      = "${local.role_policy_attach_search}"
+  role       = "${aws_iam_role.search_kibana_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonESFullAccess"
 }
 
@@ -35,6 +38,7 @@ data "template_file" "cloudplatform_offender_search_assumerole_policy_template" 
 }
 
 resource "aws_iam_role" "cloudplatform_offender_search_role" {
+  count              = "${local.role_policy_attach_search}"
   name               = "cp-offender-search-service-role-${var.environment_name}"
   description        = "IAM role for cloudplatform Offender Search access to Delius"
   assume_role_policy = "${data.template_file.cloudplatform_offender_search_assumerole_policy_template.rendered}"
@@ -51,7 +55,8 @@ data "template_file" "cloudplatform_offender_search_policy_template" {
 }
 
 resource "aws_iam_role_policy" "cloudplatform_offender_search_role_policy" {
-  name = "cp-offender-search-service-role-policy"
-  role = "${aws_iam_role.cloudplatform_offender_search_role.name}"
+  count  = "${local.role_policy_attach_search}"
+  name   = "cp-offender-search-service-role-policy"
+  role   = "${aws_iam_role.cloudplatform_offender_search_role.name}"
   policy = "${data.template_file.cloudplatform_offender_search_policy_template.rendered}"
 }

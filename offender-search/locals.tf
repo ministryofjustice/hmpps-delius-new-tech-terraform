@@ -19,4 +19,17 @@ locals {
   external_domain = "${data.terraform_remote_state.vpc.public_zone_name}"
 
   public_certificate_arn = "${data.aws_acm_certificate.cert.arn}"
+
+  environment_name = "${var.environment_name}"
+
+  policy_attach_offendersearch = {
+    delius-core-dev      = "1"
+    delius-stage         = "1"
+    delius-pre-prod      = "1"
+    delius-prod          = "1"
+  }
+
+  role_policy_attach_offendersearch = "${lookup(local.policy_attach_offendersearch, "${local.environment_name}" , 0) }"
+
+
 }
