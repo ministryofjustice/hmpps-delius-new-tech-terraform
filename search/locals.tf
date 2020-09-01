@@ -26,6 +26,17 @@ locals {
   sandpit_domain = "sandpit-${var.search_conf["es_domain"]}"
 
   cloudplatform_cidr_range = "${var.cloudplatform_data["cidr_range"]}"
+
+  environment_name     = "${var.environment_name}"
+  policy_attach_search = {
+    delius-core-dev      = "1"
+    delius-stage         = "1"
+    delius-pre-prod      = "1"
+    delius-prod          = "1"
+  }
+
+  role_policy_attach_search = "${lookup(local.policy_attach_search, "${local.environment_name}" , 0) }"
+
 }
 
 # Build list of subnets from private subnet ids equal to number of ES subnets required
