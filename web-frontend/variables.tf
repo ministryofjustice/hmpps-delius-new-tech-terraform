@@ -59,7 +59,7 @@ variable "web_conf" {
   default = {
     image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
 
-    image_version = "0.2.15"
+    image_version = "0.2.16"
     service_port  = 9000
     cpu           = "1024"
     memory        = "512"
@@ -89,6 +89,10 @@ variable "web_conf" {
     env_feedback_parom1_form_url           = "https://goo.gl/forms/tau33AGsZhYCbTpk1" # FEEDBACK_PAROM1_FORM_URL
     env_feedback_search_form_url           = "https://forms.gle/iWpkM21KtNDgzFAm7"    # FEEDBACK_SEARCH_FORM_URL
     env_feedback_offender_summary_form_url = "https://goo.gl/forms/SVgL3CuCNpvkuHxJ2" # FEEDBACK_OFFENDER_SUMMARY_FORM_URL
+    env_offender_search_provider           = "elasticsearch"# OFFENDER_SEARCH_PROVIDER
+    env_probation_search_base_url          = ""             # PROBATION_OFFENDER_SEARCH_URL
+    env_hmpps_auth_base_url                = ""             # HMPPS_AUTH_BASE_URL
+    env_nomis_api_base_url                 = ""             # NOMIS_API_BASE_URL
   }
 }
 

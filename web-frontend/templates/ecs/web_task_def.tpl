@@ -97,6 +97,18 @@
       {
         "name": "FEEDBACK_OFFENDER_SUMMARY_FORM_URL",
         "value": "${env_feedback_offender_summary_form_url}"
+      },
+      {
+        "name": "OFFENDER_SEARCH_PROVIDER",
+        "value": "${env_offender_search_provider}"
+      },
+      {
+        "name": "PROBATION_OFFENDER_SEARCH_URL",
+        "value": "${env_probation_search_base_url}"
+      },
+      {
+        "name": "HMPPS_AUTH_BASE_URL",
+        "value": "${env_hmpps_auth_base_url}"
       }
     ],
     "secrets": [
