@@ -14,7 +14,7 @@ project.newtech     = 'hmpps-delius-new-tech-terraform'
 def prepare_env() {
     sh '''
     #!/usr/env/bin bash
-    docker pull mojdigitalstudio/hmpps-terraform-builder:latest
+    docker pull mojdigitalstudio/hmpps-terraform-builder-0-11-14:latest
     '''
 }
 
@@ -28,7 +28,7 @@ def plan_submodule(config_dir, env_name, git_project_dir, submodule_name) {
         cd "${git_project_dir}"
         docker run --rm \
             -v `pwd`:/home/tools/data \
-            -v ~/.aws:/home/tools/.aws mojdigitalstudio/hmpps-terraform-builder \
+            -v ~/.aws:/home/tools/.aws mojdigitalstudio/hmpps-terraform-builder-0-11-14 \
             bash -c "\
                 source env_configs/${env_name}/${env_name}.properties; \
                 cd ${submodule_name}; \
