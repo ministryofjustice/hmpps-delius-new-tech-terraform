@@ -174,7 +174,6 @@ data "template_file" "web_task_def_template" {
     env_elastic_search_port                = "${var.web_conf["env_elastic_search_port"]}"
     env_elastic_search_scheme              = "${var.web_conf["env_elastic_search_scheme"]}"
     env_elastic_search_sign_requests       = "${var.web_conf["env_elastic_search_sign_requests"]}"
-    env_nomis_api_base_url                 = "${replace(lookup(var.ansible_vars, "nomis_url", var.default_ansible_vars["nomis_url"]),"/elite2api", "")}/"
     env_offender_api_endpoint              = "${data.terraform_remote_state.newtech_offenderapi.newtech_offenderapi_endpoint}/api/"
     env_params_user_token_valid_duration   = "${var.web_conf["env_params_user_token_valid_duration"]}"
     env_pdf_generator_url                  = "${data.terraform_remote_state.newtech_pdf.newtech_pdf_endpoint}/"
@@ -188,5 +187,9 @@ data "template_file" "web_task_def_template" {
     env_feedback_parom1_form_url           = "${var.web_conf["env_feedback_parom1_form_url"]}"
     env_feedback_search_form_url           = "${var.web_conf["env_feedback_search_form_url"]}"
     env_feedback_offender_summary_form_url = "${var.web_conf["env_feedback_offender_summary_form_url"]}"
+    env_offender_search_provider           = "${var.web_conf["env_offender_search_provider"]}"
+    env_probation_search_base_url          = "${var.web_conf["env_probation_search_base_url"]}"
+    env_hmpps_auth_base_url                = "${var.web_conf["env_hmpps_auth_base_url"]}"
+    env_nomis_api_base_url                 = "${var.web_conf["env_nomis_api_base_url"]}"
   }
 }
