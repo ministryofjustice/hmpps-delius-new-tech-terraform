@@ -14,7 +14,7 @@ project.newtech     = 'hmpps-delius-new-tech-terraform'
 def prepare_env() {
     sh '''
     #!/usr/env/bin bash
-    docker pull mojdigitalstudio/hmpps-terraform-builder:latest
+    docker pull mojdigitalstudio/hmpps-terraform-builder-0-11-14:latest
     '''
 }
 
@@ -28,19 +28,20 @@ def plan_submodule(config_dir, env_name, git_project_dir, submodule_name) {
         cd "${git_project_dir}"
         docker run --rm \
             -v `pwd`:/home/tools/data \
-            -v ~/.aws:/home/tools/.aws mojdigitalstudio/hmpps-terraform-builder \
+            -v ~/.aws:/home/tools/.aws mojdigitalstudio/hmpps-terraform-builder-0-11-14 \
             bash -c "\
                 source env_configs/${env_name}/${env_name}.properties; \
                 cd ${submodule_name}; \
                 if [ -d .terraform ]; then rm -rf .terraform; fi; sleep 5; \
                 terragrunt init; \
-                terragrunt plan > tf.plan.out; \
+                terragrunt refresh; \
+                terragrunt plan -detailed-exitcode --out ${env_name}.plan > tf.plan.out; \
                 exitcode=\\\"\\\$?\\\"; \
+                echo \\\"\\\$exitcode\\\" > plan_ret; \
                 cat tf.plan.out; \
                 if [ \\\"\\\$exitcode\\\" == '1' ]; then exit 1; fi; \
-                parse-terraform-plan -i tf.plan.out | jq '.changedResources[] | (.action != \\\"update\\\") or (.changedAttributes | to_entries | map(.key != \\\"tags.source-hash\\\") | reduce .[] as \\\$item (false; . or \\\$item))' | jq -e -s 'reduce .[] as \\\$item (false; . or \\\$item) == false'" \
+                echo \\\"\\\$exitcode\\\" > plan_ret;" \
             || exitcode="\$?"; \
-            echo "\$exitcode" > plan_ret; \
             if [ "\$exitcode" == '1' ]; then exit 1; else exit 0; fi
         set -e
         """
