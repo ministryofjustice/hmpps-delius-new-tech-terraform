@@ -92,9 +92,6 @@ resource "aws_ecs_service" "offenderpoll_service" {
     registry_arn   = "${aws_service_discovery_service.offenderpoll_svc_record.arn}"
     container_name = "offenderpollpush"
   }
-  lifecycle {
-    ignore_changes = ["desired_count"]
-  }
 }
 
 # Create a service record in the ecs cluster's private namespace
