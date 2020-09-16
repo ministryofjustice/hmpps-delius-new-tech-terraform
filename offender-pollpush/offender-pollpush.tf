@@ -86,7 +86,7 @@ resource "aws_ecs_service" "offenderpoll_service" {
     security_groups = ["${aws_security_group.offenderpoll_sg.id}"]
   }
   # Not horizontally scalable - single instance
-  desired_count = 1
+  desired_count = "${local.desired_count}"
   depends_on    = ["aws_iam_role.offenderpollpush_task_role"]
   service_registries {
     registry_arn   = "${aws_service_discovery_service.offenderpoll_svc_record.arn}"

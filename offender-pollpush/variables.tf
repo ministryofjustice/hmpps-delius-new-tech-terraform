@@ -66,6 +66,8 @@ variable "offenderpollpush_conf" {
     env_process_page_size               = "10"
     env_poll_seconds                    = "60"
     env_sns_region                      = "eu-west-2"
+
+    desired_count                       = 1
   }
 }
 
