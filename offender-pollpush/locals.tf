@@ -8,4 +8,6 @@ locals {
     "${data.terraform_remote_state.vpc.vpc_private-subnet-az2}",
     "${data.terraform_remote_state.vpc.vpc_private-subnet-az3}",
   ]
+
+  desired_count = "${var.offenderpollpush_conf["desired_count"]}"
 }
