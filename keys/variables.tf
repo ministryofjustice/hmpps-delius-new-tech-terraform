@@ -11,7 +11,7 @@ variable "environment_type" {
 }
 
 variable "jenkins_public_key" {
-  description = "The public key used for ssh communication from jenkins slaves"
+  description = "The public key used for ssh communication from jenkins agents"
 }
 
 variable "tags" {

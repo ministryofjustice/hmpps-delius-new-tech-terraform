@@ -122,7 +122,7 @@ def debug_env() {
 
 pipeline {
 
-    agent { label "jenkins_slave" }
+    agent { label "jenkins_agent" }
 
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
