@@ -59,7 +59,7 @@ variable "web_conf" {
   default = {
     image = "895523100917.dkr.ecr.eu-west-2.amazonaws.com/hmpps/new-tech-web"
 
-    image_version = "0.2.29"
+    image_version = "0.2.30"
     service_port  = 9000
     cpu           = "1024"
     memory        = "512"
