@@ -74,7 +74,13 @@
         {
             "name": "FEATURES_NOMS_UPDATE_NOMS_NUMBER",
             "value": "${env_features_noms_update_noms_number}"
+        },
+        {
+            "name": "SMOKE_TEST_AWARE",
+            "value": "${env_smoke_test_aware}"
         }
+
+
       ],
     "secrets": [
         {
