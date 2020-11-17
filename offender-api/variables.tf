@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "quay.io/hmpps/community-api"
-    image_version = "2020-11-16.2378.976a824"
+    image_version = "2020-11-17.2391.302de23"
     cpu           = "1024"
     memory        = "512"
 
