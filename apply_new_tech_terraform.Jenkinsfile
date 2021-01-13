@@ -126,7 +126,7 @@ pipeline {
 
     parameters {
         string(name: 'CONFIG_BRANCH', description: 'Target Branch for hmpps-env-configs', defaultValue: 'master')
-        string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'master')
+        string(name: 'NEWTECH_BRANCH', description: 'Target Branch for hmpps-delius-new-tech-terraform', defaultValue: 'main')
         booleanParam(name: 'deploy_NTCaseNotes', defaultValue: false, description: 'Deploy New Tech Case Notes?')
         booleanParam(name: 'deploy_NTPDFGenerator', defaultValue: false, description: 'New Tech PDF Generator?')
         booleanParam(name: 'deploy_NTOffenderAPI', defaultValue: false, description: 'New Tech Offender API?')
