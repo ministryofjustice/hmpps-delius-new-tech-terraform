@@ -72,7 +72,8 @@ variable "offenderapi_conf" {
     env_features_noms_update_custody = "false"
     env_features_noms_update_booking_number = "false"
     env_features_noms_update_keydates = "false"
-    env_features_noms_update_noms_number = "false"
+    env_features_noms_update_noms_number = "false"    
+    env_features_apply_limited_access_markers = "true"
     env_smoke_test_aware = "false"
   }
 }
