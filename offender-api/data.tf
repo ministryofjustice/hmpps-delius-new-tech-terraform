@@ -107,6 +107,7 @@ data "template_file" "offenderapi_task_def_template" {
     env_features_noms_update_keydates = "${var.offenderapi_conf["env_features_noms_update_keydates"]}"
     env_features_noms_update_noms_number = "${var.offenderapi_conf["env_features_noms_update_noms_number"]}"
     env_smoke_test_aware = "${var.offenderapi_conf["env_smoke_test_aware"]}"
+    env_features_apply_limited_access_markers = "${var.offenderapi_conf["env_features_apply_limited_access_markers"]}"
   }
 }
 

@@ -78,9 +78,11 @@
         {
             "name": "SMOKE_TEST_AWARE",
             "value": "${env_smoke_test_aware}"
+        },
+        {
+            "name": "FEATURES_APPLY_LIMITED_ACCESS_MARKERS",
+            "value": "${env_features_apply_limited_access_markers}"
         }
-
-
       ],
     "secrets": [
         {

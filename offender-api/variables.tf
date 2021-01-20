@@ -74,6 +74,7 @@ variable "offenderapi_conf" {
     env_features_noms_update_keydates = "false"
     env_features_noms_update_noms_number = "false"
     env_smoke_test_aware = "false"
+    env_features_apply_limited_access_markers = "false"
   }
 }
 
