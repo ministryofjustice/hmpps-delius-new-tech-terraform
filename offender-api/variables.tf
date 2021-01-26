@@ -48,7 +48,7 @@ variable "offenderapi_conf" {
 
   default = {
     image         = "quay.io/hmpps/community-api"
-    image_version = "2020-12-18.2628.1f7cbbe"
+    image_version = "2021-01-26.2840.c62cca5"
     cpu           = "1024"
     memory        = "512"
 
@@ -75,6 +75,9 @@ variable "offenderapi_conf" {
     env_features_noms_update_noms_number = "false"
     env_smoke_test_aware = "false"
     env_features_apply_limited_access_markers = "false"
+    env_features_noms_update_multiple_events_update_bulk_key_dates = "false"
+    env_features_noms_update_multiple_events_update_key_dates = "false"
+    env_features_noms_update_multiple_events_update_prison_location = "false"
   }
 }
 
