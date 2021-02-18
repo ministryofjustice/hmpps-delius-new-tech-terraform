@@ -78,9 +78,23 @@
         {
             "name": "SMOKE_TEST_AWARE",
             "value": "${env_smoke_test_aware}"
+        },
+        {
+            "name": "FEATURES_APPLY_LIMITED_ACCESS_MARKERS",
+            "value": "${env_features_apply_limited_access_markers}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_MULTIPLE_EVENTS_UPDATE_BULK_KEY_DATES",
+            "value": "${env_features_noms_update_multiple_events_update_bulk_key_dates}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_MULTIPLE_EVENTS_UPDATE_KEY_DATES",
+            "value": "${env_features_noms_update_multiple_events_update_key_dates}"
+        },
+        {
+            "name": "FEATURES_NOMS_UPDATE_MULTIPLE_EVENTS_UPDATE_PRISON_LOCATION",
+            "value": "${env_features_noms_update_multiple_events_update_prison_location}"
         }
-
-
       ],
     "secrets": [
         {
