@@ -60,6 +60,10 @@
             "value": "${env_push_base_url}"
         },
         {
+            "name": "DELIUSAPI_BASEURL",
+            "value": "http://delius-api.ecs.cluster:8080/"
+        },
+        {
             "name": "FEATURES_NOMS_UPDATE_CUSTODY",
             "value": "${env_features_noms_update_custody}"
         },
