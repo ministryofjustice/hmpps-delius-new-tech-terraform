@@ -153,6 +153,69 @@ pipeline {
             }
         }
 
+        stage('New Tech Dashboards') {
+            when { expression { return params.deploy_NTDashboards } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'dashboards')
+                }
+            }
+        }
+
+        stage('New Tech Web Frontend') {
+            when { expression { return params.deploy_NTWebFrontend } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'web-frontend')
+                }
+            }
+        }
+
+        stage('New Tech Offender Poll Push') {
+            when { expression { return params.deploy_NTOffenderPollPush } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'offender-pollpush')
+                }
+            }
+        }
+
+        stage('New Tech Offender Search Service') {
+            when { expression { return params.deploy_NTDOffenderSearch } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'offender-search')
+                }
+            }
+        }
+
+        stage('New Tech ElasticSearch') {
+            when { expression { return params.deploy_NTElasticSearch } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'search')
+                }
+            }
+        }
+
+        stage('New Tech Offender API') {
+            when { expression { return params.deploy_NTOffenderAPI } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'offender-api')
+                }
+            }
+        }
+
+        stage('New Tech PDF Generator') {
+            when { expression { return params.deploy_NTPDFGenerator } }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    do_terraform(project.config, environment_name, project.newtech, 'pdf-generator')
+                }
+            }
+        }
+
         stage('New Tech Case Notes') {
           when { expression { return params.deploy_NTCaseNotes } }
           steps {
@@ -162,68 +225,6 @@ pipeline {
           }
         }
 
-        stage('New Tech PDF Generator') {
-          when { expression { return params.deploy_NTPDFGenerator } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'pdf-generator')
-            }
-          }
-        }
-
-        stage('New Tech Offender API') {
-          when { expression { return params.deploy_NTOffenderAPI } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'offender-api')
-            }
-          }
-        }
-
-        stage('New Tech ElasticSearch') {
-          when { expression { return params.deploy_NTElasticSearch } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'search')
-            }
-          }
-        }
-
-        stage('New Tech Offender Search Service') {
-          when { expression { return params.deploy_NTDOffenderSearch } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'offender-search')
-            }
-          }
-        }
-
-        stage('New Tech Offender Poll Push') {
-          when { expression { return params.deploy_NTOffenderPollPush } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'offender-pollpush')
-            }
-          }
-        }
-
-        stage('New Tech Web Frontend') {
-          when { expression { return params.deploy_NTWebFrontend } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'web-frontend')
-            }
-          }
-        }
-
-        stage('New Tech Dashboards') {
-          when { expression { return params.deploy_NTDashboards } }
-          steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              do_terraform(project.config, environment_name, project.newtech, 'dashboards')
-            }
-          }
-        }
     }
 
     post {
