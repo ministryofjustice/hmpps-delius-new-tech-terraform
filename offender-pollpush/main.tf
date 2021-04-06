@@ -5,12 +5,6 @@ terraform {
 }
 
 provider "aws" {
-  region  = "${var.region}"
+  region  = "eu-west-2"
   version = "~> 1.16"
-}
-
-# Shared data and constants
-
-locals {
-  environment_name = "${var.project_name}-${var.environment_type}"
 }

@@ -18,6 +18,7 @@ terragrunt = {
       commands = [
         "destroy",
         "plan",
+        "apply",
         "import",
         "push",
         "refresh",
